@@ -13,4 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require angular
+//= require angular-route
+//= require angular-rails-templates
+//= require angular-devise
+//= require angular-material
+//= require angular-animate
+//= require angular-aria
+//= require pixel-app/app
 //= require_tree .

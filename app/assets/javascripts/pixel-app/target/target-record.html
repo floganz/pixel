@@ -1,0 +1,23 @@
+<div class="targets-container">
+  <div class="campaign-buttons">
+    <md-button class="md-primary md-raised" 
+        ng-click="$ctrl.edit($ctrl.targ.id)">
+      Edit
+    </md-button>
+    <div ng-controller="ModalController as modal" id="popupContainer" ng-cloak>
+      <md-button class="md-warn md-raised" 
+          ng-click="modal.showAdvanced($event, $ctrl.targ, $ctrl.delete)">
+        Delete
+      </md-button>
+    </div>
+  </div>
+  <div class="campaign-targets">
+    <span class="campaign-target">
+   <!-- | limitTo: $ctrl.camp.quantity -->
+    Target: {{ $ctrl.targ.name }} - <span class="count">{{ $ctrl.targ.count }}</span>
+    </span>
+  </div>
+  <div class="clear"></div>
+</div>
+<target-form ng-if="$ctrl.targ.show" type="$ctrl.type" target="$ctrl.target"
+  on-update="$ctrl.editRecord(id,data)" on-cancel="$ctrl.cancel()"></target-form>

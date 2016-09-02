@@ -1,0 +1,17 @@
+<form class="_form" name="form1" ng-submit="form1.$valid && $ctrl.onSubmit($ctrl.campaign)">
+  <h3 ng-if="$ctrl.type == 'new'">Add new campaign</h3>
+  <h4 ng-if="$ctrl.type == 'edit'">Edit</h4>
+  <md-input-container class="md-block" flex-gt-sm>
+    <label>Name</label>
+    <input ng-model="$ctrl.campaign.name" ng-required="true" type="text">
+  </md-input-container>
+  <div>
+    <md-button class="md-success md-raised" type="submit">
+      <span ng-if="$ctrl.type == 'new'">Create</span>
+      <span ng-if="$ctrl.type == 'edit'">Save changes</span>   
+    </md-button>
+    <md-button ng-click="$ctrl.cancel()" class="md-primary md-raised">
+      Cancel
+    </md-button>
+  </div>
+</form>

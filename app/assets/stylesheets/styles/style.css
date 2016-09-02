@@ -1,0 +1,90 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+.nav {
+	margin-top: 0;
+}
+
+.wrapper {
+	width: 80%;
+	margin: auto;
+}
+
+.campaign-container {
+	width: 80%;
+	background-color: #eee;
+	height: auto;
+	margin: 15px auto;
+	padding: 20px;
+}
+
+.campaign-container span {
+	display: block;
+}
+
+.campaign-content {
+	float: left;
+}
+
+.campaign-buttons {
+	float: right;
+}
+
+.campaign-title {
+  font-style: italic; 
+  font-weight: bold;
+  text-indent: 15px;
+  text-transform: capitalize;
+  padding-left: 20px;
+  padding-bottom: 20px;
+}
+
+.clear {
+	clear: both;
+}
+
+._form {
+  width: 80%;
+  padding: 20px;
+  margin: 15px auto;
+  background-color: #eee;
+}
+
+.campaign-targets {
+	float: left;
+}
+
+.row {
+	width: 100%;
+	float: left;
+	clear: both;
+}
+
+.count {
+	display: inline !important;
+	font-style: italic; 
+	font-weight: bold;
+}
+
+.campaign-solo {
+	width: 80%;
+	margin: 15px auto;
+}
+
+.targets-container {
+	margin: 15px auto;
+	background-color: #eee;
+	padding: 20px;
+}
+
+.target-form {
+	margin: 15px auto;
+	background-color: #eee;
+	padding: 20px;	
+}
+
+.target-form .md-primary.md-raised {
+	margin-top: -25px;
+}
