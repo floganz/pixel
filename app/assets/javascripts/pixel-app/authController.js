@@ -29,14 +29,14 @@ angular.module('pixel-app')
         });
     }
 
-    Auth.login(credentials, config).then(function(user) {
-        Auth.currentUser().then(function(resp){
-            console.log(resp)
-        })
-        console.log(user); // => {id: 1, ect: '...'}
-    }, function(error) {
-        // Authentication failed...
-    });
+    // Auth.login(credentials, config).then(function(user) {
+    //     Auth.currentUser().then(function(resp){
+    //         console.log(resp)
+    //     })
+    //     console.log(user); // => {id: 1, ect: '...'}
+    // }, function(error) {
+    //     // Authentication failed...
+    // });
 
     $scope.$on("$locationChangeStart", function(event, next, current) {
 
@@ -52,6 +52,13 @@ angular.module('pixel-app')
     });
 
     $scope.$on('devise:login', function(event, currentUser) {
+        // after a login, a hard refresh, a new tab
+        console.log("auth complited");
+        vm.logged = true;
+        $location.path('dashboard')
+    });
+
+    $scope.$on('devise:new-registration', function(event, currentUser) {
         // after a login, a hard refresh, a new tab
         console.log("auth complited");
         vm.logged = true;

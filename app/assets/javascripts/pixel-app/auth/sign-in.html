@@ -1,1 +1,16 @@
-sign in
+<div ng-controller="loginController as $ctrl">
+  <form name="sign_in" ng-submit="$ctrl.sign_in(user) && sign_in.valid">
+    <div class="user-form md-form" layout="column">
+      <h2>Sign in</h2>
+      <md-input-container>
+        <label for="email">Email</label>
+        <input type="text" id="email" ng-model="user.email" ng-required="true">
+      </md-input-container>
+      <md-input-container>
+        <label for="password">Password</label>
+        <input type="password" id="password" ng-model="user.password" ng-required="true">
+      </md-input-container>
+      <md-button class="md-primary md-raised" type="submit">Sign in</md-button>
+    </div>
+  </form>
+</div>

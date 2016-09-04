@@ -88,3 +88,8 @@ body {
 .target-form .md-primary.md-raised {
 	margin-top: -25px;
 }
+
+.user-form {
+  width: 50%;
+  margin: auto;
+}

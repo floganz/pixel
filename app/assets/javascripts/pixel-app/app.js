@@ -17,7 +17,7 @@ angular.module('pixel-app',[
 
         // // Customize register
         AuthProvider.registerMethod('POST');
-        AuthProvider.registerPath('/user/sign_up.json');
+        AuthProvider.registerPath('/users.json');
 
         // // Customize the resource name data use namespaced under
         // // Pass false to disable the namespace altogether.

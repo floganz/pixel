@@ -1,16 +1,18 @@
-angular.module('pixel-app').controller('dashboardController', ['dataservice', '$scope',
-	function (dataservice, $scope) {
+angular.module('pixel-app').controller('dashboardController', ['dataservice', '$scope','Auth',
+	function (dataservice, $scope,Auth) {
 
 		var vm = this;
     vm.scope = $scope;
     vm.opened = vm;
 
-    dataservice.getCampaigns().then(function(data) {
-      vm.campaigns = data;
-      dataservice.getTargets(vm.campaigns[0].id).then(function(data) {
-        vm.campaigns[0].targets = data;
+    if (Auth.isAuthenticated()) {
+      dataservice.getCampaigns().then(function(data) {
+        vm.campaigns = data;
+        dataservice.getTargets(vm.campaigns[0].id).then(function(data) {
+          vm.campaigns[0].targets = data;
+        });
       });
-    });
+    } 
 
     this.new = function(newValue) {
       vm.campaign = {};
