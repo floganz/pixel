@@ -56,7 +56,11 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       dataservice.destroyCampaign(id).then(function(id) {
         vm.campaigns.splice(i, 1);
       });
-    });	
+    });
+
+    vm.logout = function () {
+      vm.onLogout();
+    }
 
     vm.scope.$on("$locationChangeSuccess", function(event, next, current) {
       vm.init();

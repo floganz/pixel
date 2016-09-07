@@ -3,6 +3,12 @@ angular.module('pixel-app').controller('navController', ['dataservice',
 
     var vm = this;
 
+    if ( vm.selected ) {
+      // console.log(tabs[current]);
+      console.log(vm.selectedIndex + " " + vm.selected);
+      vm.selectedIndex = vm.selected;
+    }
+
     this.tab = function (tab) {
       vm.onChange({tab: tab});
     };

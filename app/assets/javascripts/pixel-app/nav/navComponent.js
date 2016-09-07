@@ -2,6 +2,7 @@ angular.module('pixel-app').component('nav', {
   bindings: {
   	logged: '<',
   	solo: '<',
+    selected: '<',
   	onChange: '&',
   	onLogout: '&',
   	onNew: '&',
