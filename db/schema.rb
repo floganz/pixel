@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160902075939) do
+ActiveRecord::Schema.define(version: 20160905111449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,8 @@ ActiveRecord::Schema.define(version: 20160902075939) do
     t.integer "target_id"
     t.string  "ip"
     t.date    "date"
+    t.boolean "unique",    default: false
+    t.string  "browser"
     t.index ["target_id"], name: "index_events_on_target_id", using: :btree
   end
 

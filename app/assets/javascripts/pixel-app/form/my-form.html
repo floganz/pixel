@@ -1,4 +1,5 @@
-<form class="_form" name="form1" ng-submit="form1.$valid && $ctrl.onSubmit($ctrl.campaign)">
+<form class="_form padded" name="form1" 
+  ng-submit="form1.$valid && $ctrl.onSubmit($ctrl.campaign)" md-whiteframe="3">
   <h3 ng-if="$ctrl.type == 'new'">Add new campaign</h3>
   <h4 ng-if="$ctrl.type == 'edit'">Edit</h4>
   <md-input-container class="md-block" flex-gt-sm>

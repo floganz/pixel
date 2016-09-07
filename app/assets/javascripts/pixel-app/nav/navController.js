@@ -1,26 +1,22 @@
-// angular.module('pixel-app').controller('myFormController', ['dataservice',
-// 	function (dataservice) {
+angular.module('pixel-app').controller('navController', ['dataservice',
+	function (dataservice) {
 
-//     var vm = this;
+    var vm = this;
+
+    this.tab = function (tab) {
+      vm.onChange({tab: tab});
+    };
     
-//     this.onSubmit = function (newValue) {
-//       console.log(newValue);
-//       console.log(vm.type);
-//       if (vm.type == "new") {
-//         dataservice.createCampaign(newValue).then(function(data) {
-//           vm.onUpdate({data: data});
-//           vm.onCancel();
-//         });
-//       } else {
-//       //   dataservice.editCampaign(newValue.id,newValue).then(function(data) {
-//       //     vm.onUpdate({id: newValue.id, data: data});
-//       //     vm.onCancel();
-//       //   });
-//       }
-//     }
+    this.logout = function () {
+      vm.onLogout();
+    }
 
-//     this.cancel = function () {
-//       vm.onCancel();
-//     };
-//   }
-// ]);
+    this.new = function () {
+      vm.onNew();
+    }
+
+    this.cancel = function () {
+      vm.onCancel();
+    }
+  }
+]);

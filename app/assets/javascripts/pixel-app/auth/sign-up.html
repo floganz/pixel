@@ -1,20 +1,23 @@
-<div ng-controller="loginController as $ctrl">
-  <form name="sign_up" ng-submit="$ctrl.sign_up(user) && sign_up.valid">
-    <div class="user-form md-form" layout="column">
-      <h2>Sign up</h2>
-      <md-input-container>
-        <label for="email">Email</label>
-        <input type="text" id="email" ng-model="user.email" ng-required="true">
-      </md-input-container>
-      <md-input-container>
-        <label for="password">Password</label>
-        <input type="password" id="password" ng-model="user.password" ng-required="true">
-      </md-input-container>
-      <md-input-container>
-        <label for="password_confirmation">Password confiramation</label>
-        <input type="password" id="password_confirmation" ng-model="user.password_confirmation" ng-required="true">
-      </md-input-container>
-      <md-button class="md-primary md-raised" type="submit">Sign up</md-button>
+<nav on-change="auth.tab(tab)" logged="false"></nav>
+<form name="sign_up" ng-submit="auth.sign_up(user) && sign_up.valid">
+  <div class="user-form md-form" layout="column">
+    <h2>Sign up</h2>
+    <p class="danger" ng-if="auth.error">{{ auth.error }}</p>
+    <md-input-container>
+      <label for="email">Email</label>
+      <input type="text" id="email" ng-model="user.email" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+      <label for="password">Password</label>
+      <input type="password" id="password" ng-model="user.password" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+      <label for="password_confirmation">Password confiramation</label>
+      <input type="password" id="password_confirmation" ng-model="user.password_confirmation" ng-required="true">
+    </md-input-container>
+    <div layout="row" layout-sm="column" layout-align="space-around">
+      <md-progress-circular ng-show="auth.activated" ng-disabled="!auth.activated" class="md-hue-2" md-diameter="20px"></md-progress-circular>
     </div>
-  </form>
-</div>
+    <md-button class="md-primary md-raised" type="submit">Sign up</md-button>
+  </div>
+</form>

@@ -1,21 +1,36 @@
 <div class="targets-container">
-  <div class="campaign-buttons">
-    <md-button class="md-primary md-raised" 
-        ng-click="$ctrl.edit($ctrl.targ.id)">
-      Edit
-    </md-button>
-    <div ng-controller="ModalController as modal" id="popupContainer" ng-cloak>
-      <md-button class="md-warn md-raised" 
-          ng-click="modal.showAdvanced($event, $ctrl.targ, $ctrl.delete)">
-        Delete
+    <div class="campaign-buttons">
+      <md-button class="md-primary md-raised" 
+          ng-click="$ctrl.edit($ctrl.targ.id)">
+        Edit
       </md-button>
+      <div ng-controller="ModalController as modal" id="popupContainer" ng-cloak>
+        <md-button class="md-warn md-raised" 
+            ng-click="modal.showAdvanced($event, $ctrl.targ, $ctrl.delete)">
+          Delete
+        </md-button>
+      </div>
     </div>
+    <div class="campaign-targets">
+      <span>
+        <h4>{{ $ctrl.targ.name }}</h4> 
+          <pre>&ltimg src="http://localhost:3000/event.gif?id={{ $ctrl.targ.id }}" /&gt</pre>
+          <p>Visits - {{ $ctrl.targ.visits }}</p>
+          <p>Unique visits - {{ $ctrl.targ.unique }}</p>
+      </span>
+    </div>
+  <div class="clear"></div>
+  <div class="chart-size" ng-if="$ctrl.targ.visits">
+    <h3>Visits</h3>
+    <canvas id="pie" class="chart chart-pie"
+      chart-data="$ctrl.visits_chart.data" chart-labels="$ctrl.visits_chart.labels" chart-options="$ctrl.visits_chart.options">
+    </canvas>
   </div>
-  <div class="campaign-targets">
-    <span class="campaign-target">
-   <!-- | limitTo: $ctrl.camp.quantity -->
-    Target: {{ $ctrl.targ.name }} - <span class="count">{{ $ctrl.targ.count }}</span>
-    </span>
+  <div class="chart-size" ng-if="$ctrl.targ.unique">
+    <h3>Browsers</h3>
+    <canvas id="pie" class="chart chart-pie"
+      chart-data="$ctrl.browser_chart.data" chart-labels="$ctrl.browser_chart.labels" chart-options="$ctrl.browser_chart.options">
+    </canvas> 
   </div>
   <div class="clear"></div>
 </div>

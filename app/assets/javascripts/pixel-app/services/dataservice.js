@@ -32,8 +32,8 @@ function dataservice($http,$q, Auth) {
 
   function getCampaigns(id) {
     var deffered = $q.defer();
-    id = 1;
-    $http.get("/get_campaigns?user_id=" + id)
+    // id = 1;
+    $http.get("/campaigns?user_id=" + id)
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -42,7 +42,7 @@ function dataservice($http,$q, Auth) {
 
   function getCampaign(id) {
     var deffered = $q.defer();
-    $http.get("/get_campaign?id=" + id)
+    $http.get("/campaigns/" + id)
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -51,7 +51,7 @@ function dataservice($http,$q, Auth) {
   
   function getTargets(id) {
     var deffered = $q.defer();
-    $http.get("/get_targets?campaign_id=" + id)
+    $http.get("/targets?campaign_id=" + id)
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -69,23 +69,18 @@ function dataservice($http,$q, Auth) {
 
   function createCampaign(newValue) {
     var deffered = $q.defer();
-    var id = setUser();
-    console.log(id)
-    id = 1;
-    newValue.user_id = id;
+    newValue.user_id = Auth._currentUser.id;
     console.log(newValue)
-    if (id != -1) {
-      $http.post(
-        "/campaigns", newValue,
-        {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
-      ).success(function (data, status, headers, config) {
-        deffered.resolve(data);
-      })
-      .error(function (){
-        console.log("error");
-      });
-      return deffered.promise;
-    }
+    $http.post(
+      "/campaigns", newValue,
+      {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+    ).success(function (data, status, headers, config) {
+      deffered.resolve(data);
+    })
+    .error(function (){
+      console.log("error");
+    });
+    return deffered.promise;
   };
 
   function createTarget(newValue) {

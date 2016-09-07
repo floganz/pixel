@@ -1,18 +1,30 @@
-angular.module('pixel-app').controller('dashboardController', ['dataservice', '$scope','Auth',
-	function (dataservice, $scope,Auth) {
+angular.module('pixel-app').controller('dashboardController', ['dataservice', '$scope','Auth','$location',
+	function (dataservice, $scope, Auth, $location) {
 
 		var vm = this;
     vm.scope = $scope;
     vm.opened = vm;
+    vm.campaigns = [];
+    vm.newOne = "";
 
-    if (Auth.isAuthenticated()) {
-      dataservice.getCampaigns().then(function(data) {
-        vm.campaigns = data;
-        dataservice.getTargets(vm.campaigns[0].id).then(function(data) {
-          vm.campaigns[0].targets = data;
+    this.init = function () {
+      vm.newOne = "";
+      if (Auth.isAuthenticated()) {
+        // console.log("1");
+        dataservice.getCampaigns(Auth._currentUser.id).then(function(data) {
+          vm.campaigns = data;
+          dataservice.getTargets(vm.campaigns[0].id).then(function(data) {
+            vm.campaigns[0].targets = data;
+          });
+          if (vm.campaigns.length == 0) {
+            console.log("no data");
+            vm.newOne = 'Press "NEW CAMPAIGN" to start';
+          }
         });
-      });
-    } 
+      }
+    };
+
+    vm.init();
 
     this.new = function(newValue) {
       vm.campaign = {};
@@ -27,7 +39,8 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
     };
 
     this.addRecord = function(data) {
-      console.log(data)
+      // console.log(data);
+      vm.newOne = "";
       vm.campaigns.unshift(data.campaign);
     };
 
@@ -44,5 +57,9 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
         vm.campaigns.splice(i, 1);
       });
     });	
+
+    vm.scope.$on("$locationChangeSuccess", function(event, next, current) {
+      vm.init();
+    });
   }
 ]);

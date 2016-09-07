@@ -4,13 +4,8 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
 		var vm = this;
     vm.scope = $scope;
     vm.opened = vm;
-    // vm.opened = $scope.opened;
+
     if ($routeParams.id) {
-      console.log($routeParams.id)
-      // var obj =  vm.unis.filter(function(obj) {
-      //   return obj.id == $routeParams.id;
-      // });
-      // var i =  vm.unis.indexOf(obj[0]);
       dataservice.getCampaign($routeParams.id).then(function(data) {
         vm.camp = data;
         dataservice.getTargets(vm.camp.id).then(function(data) {
@@ -48,15 +43,14 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
     };
 
     this.editRecord = function (id,data) {
-      // console.log(id);
-      // console.log(data);
       vm.opened.show = !vm.opened.show;
       vm.camp = data;
       console.log("edit record " + id + " data " + data)
     };
 
     this.delete = function (id) {
-      vm.scope.$emit('deleteRecord', id);
+      // vm.scope.$emit('deleteRecord', id);
+      
       console.log("delete " + id)
     };
 
@@ -74,7 +68,8 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       newValue.campaign_id = camp_id;
       console.log(newValue);
       dataservice.createTarget(newValue).then(function(data) {
-        data.target.count = 0
+        data.target.visits = 0
+        data.target.unique = 0
         vm.camp.targets.unshift(data.target)
       });
     };

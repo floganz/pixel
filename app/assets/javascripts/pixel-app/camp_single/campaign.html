@@ -1,6 +1,8 @@
+<nav on-change="auth.tab(tab)" on-logout="auth.logout()"
+  logged="true" solo="true"></nav>
 <div ng-controller="campaignSingleController as $ctrl">
-  <div class=campaign-solo>
-    <div class="row">
+  <div class="campaign-solo padded" md-whiteframe="3">
+    <div class="row padded"  md-whiteframe="3">
       <div class="campaign-buttons">
         <md-button class="md-primary md-raised" 
             ng-click="$ctrl.edit($ctrl.camp.id)">
@@ -19,7 +21,7 @@
         </span>
       </div>
     </div>
-    <div class="row">
+    <div class="row padded" md-whiteframe="3">
       <form ng-submit="$ctrl.addTarget(target,$ctrl.camp.id)">
         <div class="target-form md-inline-form">
           <md-input-container>
@@ -30,7 +32,7 @@
         </div>
       </form>
     </div>
-    <div class="row" ng-repeat="t in $ctrl.camp.targets" >
+    <div class="row padded" ng-repeat="t in $ctrl.camp.targets" md-whiteframe="3">
       <target-record targ="t" opened="$ctrl.opened" on-delete="$ctrl.destroy(id)"></target-record>
     </div>
     <div class="clear"></div>

@@ -17,6 +17,7 @@ angular.module('pixel-app').controller('targetFormController', ['dataservice',
           vm.onCancel();
         });
       }
+      vm.target.name = "";
     }
 
     this.cancel = function () {

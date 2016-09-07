@@ -14,11 +14,14 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require angular
+//= require chart.js/dist/Chart
+//= require angular-chart.js/angular-chart
 //= require angular-route
 //= require angular-rails-templates
 //= require angular-devise
 //= require angular-material
 //= require angular-animate
 //= require angular-aria
+//= require angular-cookies
 //= require pixel-app/app
 //= require_tree .

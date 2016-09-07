@@ -47,12 +47,20 @@ class TargetsController < ApplicationController
     end
   end
 
-  def getData
+  def index
     @targets = Target.with_count(params[:campaign_id])
-    render json: @targets
+    render json: @targets.map do |t|
+      {
+        id: t.id,
+        name: t.name,
+        visits: t.visits,
+        unique: t.unique
+      } 
+    end
   end
 
-  def target_params
-    params.require(:target).permit(:name, :campaign_id)
-  end
+  private
+    def target_params
+      params.require(:target).permit(:name, :campaign_id)
+    end
 end

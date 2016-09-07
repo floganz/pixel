@@ -1,9 +1,6 @@
-// angular.module('pixel-app').component('dashboard', {
-//   bindings: {
-//     camp: '<',
-//     onUpdate: '&',
-//     onCancel: '&'
-//   },
-//   templateUrl:'pixel-app/dashboard/dashboard.html',
-//   controller: 'dashboardController'
-// });
+angular.module('pixel-app').component('myDashboard', {
+  bindings: {
+  },
+  templateUrl:'pixel-app/dashboard/my-dashboard.html',
+  controller: 'dashboardController'
+});

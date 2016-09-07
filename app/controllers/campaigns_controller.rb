@@ -47,21 +47,18 @@ class CampaignsController < ApplicationController
     end
   end
 
-  def getData
+  def index
     @campaigns = Campaign.where(user_id: params[:user_id])
     render json: @campaigns
   end
 
-  def getOne
+  def show
     @campaigns = Campaign.find params[:id]
     render json: @campaigns
   end
 
-  def campaign_params
-    params.require(:campaign).permit(:name, :user_id)
-  end
-
-  def set_user
-     
-  end
+  private
+    def campaign_params
+      params.require(:campaign).permit(:name, :user_id)
+    end
 end

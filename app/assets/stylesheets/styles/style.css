@@ -24,8 +24,12 @@ body {
 	display: block;
 }
 
-.campaign-content {
+.campaign-content, .campaign-targets {
 	float: left;
+}
+
+.campaign-targets {
+	margin-top: -10px;
 }
 
 .campaign-buttons {
@@ -52,14 +56,33 @@ body {
   background-color: #eee;
 }
 
-.campaign-targets {
-	float: left;
+.campaign-target {
+	margin: 10px auto;
+	background-color: #f2f2f2;
+	padding: 10px;
+	width: 200px;
+}
+
+.target-name {
+  font-style: italic; 
+  font-weight: bold;
+}
+
+.campaign-targets-container {
+	width: 100%;
+}
+
+.modal {
+	padding: 25px;
 }
 
 .row {
-	width: 100%;
+	width: 90%;
 	float: left;
 	clear: both;
+	margin: 10px auto;
+	padding: 10px;
+	background-color: #eee;
 }
 
 .count {
@@ -71,6 +94,7 @@ body {
 .campaign-solo {
 	width: 80%;
 	margin: 15px auto;
+	padding: 20px;
 }
 
 .targets-container {
@@ -79,17 +103,28 @@ body {
 	padding: 20px;
 }
 
-.target-form {
-	margin: 15px auto;
-	background-color: #eee;
-	padding: 20px;	
-}
-
 .target-form .md-primary.md-raised {
 	margin-top: -25px;
 }
 
 .user-form {
-  width: 50%;
+  min-width: 400px;
+  max-width: 500px;
   margin: auto;
+}
+
+.danger, .notice {
+	background-color: #d9534f;
+	padding: 15px;
+	border-radius: 5px;
+}
+
+.notice {
+	background-color: #5bc0de;
+	width: 30%;
+}
+
+.chart-size {
+	width: 35%;
+	float: left;
 }
