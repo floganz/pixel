@@ -1,6 +1,6 @@
 class Target < ApplicationRecord
   has_one :campaigns
-  has_many :events, :dependent => :delete_all
+  has_many :events, :dependent => :destroy
 
   def self.with_count(id)
     @targets = Target.select("targets.id, targets.name, 
