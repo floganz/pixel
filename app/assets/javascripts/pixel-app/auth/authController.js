@@ -36,6 +36,7 @@ angular.module('pixel-app')
     };
 
     this.tab = function(path) {
+      console.log(vm.host + " " + path);
       $location.path(path);
     }
 
