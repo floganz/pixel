@@ -13,13 +13,14 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
         // console.log("1");
         dataservice.getCampaigns(Auth._currentUser.id).then(function(data) {
           vm.campaigns = data;
-          dataservice.getTargets(vm.campaigns[0].id).then(function(data) {
-            vm.campaigns[0].targets = data;
-          });
           if (vm.campaigns.length == 0) {
             console.log("no data");
             vm.newOne = 'Press "NEW CAMPAIGN" to start';
+            return
           }
+          dataservice.getTargets(vm.campaigns[0].id).then(function(data) {
+            vm.campaigns[0].targets = data;
+          });
         });
       }
     };
