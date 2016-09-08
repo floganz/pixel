@@ -14,7 +14,7 @@
     <div class="campaign-targets">
       <span>
         <h4>{{ $ctrl.targ.name }}</h4> 
-          <pre>&ltimg src="http://localhost:3000/event.gif?id={{ $ctrl.targ.id }}" /&gt</pre>
+          <pre>&ltimg src="{{$ctrl.host}}/event.gif?id={{ $ctrl.targ.id }}" /&gt</pre>
           <p>Visits - {{ $ctrl.targ.visits }}</p>
           <p>Unique visits - {{ $ctrl.targ.unique }}</p>
       </span>

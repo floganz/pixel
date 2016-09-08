@@ -1,8 +1,9 @@
-angular.module('pixel-app').controller('targetController', ['dataservice', '$scope','$routeParams',
-	function (dataservice, $scope, $routeParams) {
+angular.module('pixel-app').controller('targetController', ['dataservice', '$scope','$routeParams','$location',
+	function (dataservice, $scope, $routeParams, $location) {
 
 		var vm = this;
     vm.scope = $scope;
+    vm.host = $location.protocol() + "://" + $location.host();
     vm.visits_chart = {
       labels: ["visits", "unique visits"],
       options: {
