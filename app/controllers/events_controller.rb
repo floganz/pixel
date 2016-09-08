@@ -13,7 +13,9 @@ class EventsController < ApplicationController
       @event.unique = true
     end
     @event.save!
-    redirect_to ActionController::Base.helpers.asset_path 'pixel'
+    # redirect_to ActionController::Base.helpers.asset_path 'pixel.gif'
+    # redirect_to 'pixel.gif'
+    return 'pixel.gif'
   end
 
   def client_browser_name
