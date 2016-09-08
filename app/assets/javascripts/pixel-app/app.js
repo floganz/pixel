@@ -2,13 +2,13 @@ angular.module('pixel-app',[
 	'templates', 
 	'ngRoute',
 	'Devise',
-    'ngMaterial',
-    'ngAnimate',
-    'ngAria',
-    'chart.js',
-    'ngCookies'
+  'ngMaterial',
+  'ngAnimate',
+  'ngAria',
+  'chart.js',
+  'ngCookies'
 ])
-.config(function(AuthProvider, AuthInterceptProvider, $httpProvider) {
+.config(['AuthProvider', 'AuthInterceptProvider', '$httpProvider', function(AuthProvider, AuthInterceptProvider, $httpProvider) {
         AuthProvider.loginMethod('POST');
         AuthProvider.loginPath('/users/sign_in.json');
 
@@ -25,7 +25,7 @@ angular.module('pixel-app',[
         });
 
         $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
-    })
+    }])
 .config(['$routeProvider', function($routeProvider){
     $routeProvider
       .when('/auth/sign_in', {templateUrl:'pixel-app/auth/sign-in.html'})
