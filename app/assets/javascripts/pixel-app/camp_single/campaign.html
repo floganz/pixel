@@ -22,6 +22,10 @@
       </div>
     </div>
     <div class="row padded" md-whiteframe="3">
+      <my-form ng-if="$ctrl.camp.show" type="$ctrl.type" campaign="$ctrl.campaign"
+        on-update="$ctrl.editRecord(id,data)" on-cancel="$ctrl.cancel()"></my-form>
+    </div>
+    <div class="row padded" md-whiteframe="3">
       <form ng-submit="$ctrl.addTarget($ctrl.target,$ctrl.camp.id)">
         <div class="target-form md-inline-form">
           <md-input-container>
@@ -37,6 +41,5 @@
     </div>
     <div class="clear"></div>
   </div>
-  <my-form ng-if="$ctrl.camp.show" type="$ctrl.type" campaign="$ctrl.campaign"
-    on-update="$ctrl.editRecord(id,data)" on-cancel="$ctrl.cancel()"></my-form>
+
 </div>
