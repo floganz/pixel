@@ -57,6 +57,9 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       var i =  vm.campaigns.indexOf(obj[0]);
       dataservice.destroyCampaign(id).then(function(id) {
         vm.campaigns.splice(i, 1);
+        if( vm.campaigns.length == 0) {
+          vm.newOne = 'Press "NEW CAMPAIGN" to start';
+        }
       });
     });
 
