@@ -4,7 +4,8 @@ angular.module('pixel-app')
 
     var vm = this;
     vm.logged = false;
-    vm.host = $location.protocol() + "://" + $location.host() + ":" + $location.port();
+    vm.host = $location.protocol() + "://" + $location.host();
+    // + ":" + $location.port()
     vm.activated = false;
     vm.error = "";
 
