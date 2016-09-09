@@ -128,3 +128,11 @@ body {
 	width: 35%;
 	float: left;
 }
+
+.row-edit-form {
+	width: 90%;
+	float: left;
+	clear: both;
+	margin: 10px auto;
+	padding: 10px;
+}
