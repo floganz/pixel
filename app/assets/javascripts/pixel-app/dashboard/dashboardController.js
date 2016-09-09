@@ -68,8 +68,8 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       vm.onChange({tab: tab});
     };
 
-    // vm.scope.$on("$locationChangeSuccess", function(event, next, current) {
-    //   vm.init();
-    // });
+    vm.scope.$on("$locationChangeSuccess", function(event, next, current) {
+      vm.init();
+    });
   }
 ]);
