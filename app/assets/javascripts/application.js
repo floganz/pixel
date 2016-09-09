@@ -20,6 +20,7 @@
 //= require angular-rails-templates
 //= require angular-devise
 //= require angular-material
+//= require angular-messages
 //= require angular-animate
 //= require angular-aria
 //= require angular-cookies

@@ -17,19 +17,6 @@ function dataservice($http,$q, Auth) {
   };
   return service;
 
-  function setUser() {
-    Auth.currentUser().then(function(user) {
-        // User was logged in, or Devise returned
-        // previously authenticated session.
-        console.log(user); // => {id: 1, ect: '...'}
-        return user.id
-    }, function(error) {
-        // unauthenticated error
-        console.log("user not auth");
-        return -1;
-    });
-  }
-
   function getCampaigns(id) {
     var deffered = $q.defer();
     // id = 1;
@@ -70,7 +57,7 @@ function dataservice($http,$q, Auth) {
   function createCampaign(newValue) {
     var deffered = $q.defer();
     newValue.user_id = Auth._currentUser.id;
-    console.log(newValue)
+    // console.log(newValue)
     $http.post(
       "/campaigns", newValue,
       {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
@@ -78,7 +65,7 @@ function dataservice($http,$q, Auth) {
       deffered.resolve(data);
     })
     .error(function (){
-      console.log("error");
+      // console.log("error");
     });
     return deffered.promise;
   };
@@ -92,7 +79,7 @@ function dataservice($http,$q, Auth) {
       deffered.resolve(data);
     })
     .error(function (){
-      console.log("error");
+      // console.log("error");
     });
     return deffered.promise;
   };
@@ -106,7 +93,7 @@ function dataservice($http,$q, Auth) {
       deffered.resolve(data);
     })
     .error(function (){
-      console.log("error");
+      // console.log("error");
     });
     return deffered.promise;
   };
@@ -153,14 +140,13 @@ function dataservice($http,$q, Auth) {
       deffered.resolve(data);
     })
     .error(function (){
-      console.log("error");
+      // console.log("error");
     });
     return deffered.promise;
   };
 
   function editTarget(id,newValue) {
     var deffered = $q.defer();
-    console.log("id " + id + " data " + newValue);
     $http.patch(
       "/targets/"+id, newValue,
       {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
@@ -168,7 +154,7 @@ function dataservice($http,$q, Auth) {
       deffered.resolve(data);
     })
     .error(function (){
-      console.log("error");
+      // console.log("error");
     });
     return deffered.promise;
   };

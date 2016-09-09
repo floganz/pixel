@@ -5,15 +5,36 @@
     <p class="danger" ng-if="auth.error">{{ auth.error }}</p>
     <md-input-container>
       <label for="email">Email</label>
-      <input type="text" id="email" ng-model="user.email" ng-required="true">
+      <input type="text" id="email" ng-model="user.email" 
+        ng-required="true" name=email ng-pattern="/^.+@.+\..+$/">
+      <div ng-messages="sign_up.email.$error" role="alert">
+        <div ng-message-exp="'required'">You did not enter your email address</div>
+        <div ng-message-exp="'pattern'">You must enter valid email address</div>
+      </div>
     </md-input-container>
     <md-input-container>
       <label for="password">Password</label>
-      <input type="password" id="password" ng-model="user.password" ng-required="true">
+      <input type="password" id="password" ng-model="user.password" 
+        ng-required="true" ng-minlength="6" ng-maxlength="15" name="pass">
+      <div ng-messages="sign_up.pass.$error" role="alert">
+        <div ng-message-exp="'required'">You did not enter your password</div>
+        <div ng-message-exp="['minlength', 'maxlength']">
+          Your password must be between 6 and 15 characters long
+        </div>
+      </div>
     </md-input-container>
     <md-input-container>
       <label for="password_confirmation">Password confiramation</label>
-      <input type="password" id="password_confirmation" ng-model="user.password_confirmation" ng-required="true">
+      <input type="password" id="password_confirmation" ng-model="user.password_confirmation"
+        name="pass_conf" ng-pattern="{{user.password}}" ng-required="true" 
+        ng-minlength="6" ng-maxlength="15">
+      <div ng-messages="sign_up.pass_conf.$error" role="alert">
+        <div ng-message-exp="'required'">You did not enter your password confirmation</div>
+        <div ng-message-exp="['minlength', 'maxlength']">
+          Your password must be between 6 and 15 characters long
+        </div>
+        <div ng-message-exp="'pattern'">You passwords does not match!</div>
+      </div>
     </md-input-container>
     <div layout="row" layout-sm="column" layout-align="space-around">
       <md-progress-circular ng-show="auth.activated" ng-disabled="!auth.activated" class="md-hue-2" md-diameter="20px"></md-progress-circular>

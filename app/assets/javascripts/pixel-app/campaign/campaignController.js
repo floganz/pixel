@@ -37,22 +37,22 @@ angular.module('pixel-app').controller('campaignController', ['dataservice', '$s
       // console.log(data);
       vm.opened.show = !vm.opened.show;
       vm.camp = data;
-      console.log("edit record " + id + " data " + data)
+      // console.log("edit record " + id + " data " + data)
     };
 
     this.delete = function (id) {
       vm.scope.$emit('deleteRecord', id);
-      console.log("delete " + id)
+      // console.log("delete " + id)
     };
 
     this.more = function (id) {
-      console.log("more " + id)
+      // console.log("more " + id)
     }
 
     this.cancel = function () {
       vm.camp.show = false;
     	vm.onCancel();
-      console.log("cancel")
+      // console.log("cancel")
     };
 	}
 ]);

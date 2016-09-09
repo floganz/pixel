@@ -3,12 +3,13 @@ angular.module('pixel-app').controller('myFormController', ['dataservice',
 
     var vm = this;
     
-    this.onSubmit = function (newValue) {
-      console.log(newValue);
-      console.log(vm.type);
+    vm.onSubmit = function (newValue) {
+      // console.log(newValue);
+      // console.log(vm.type);
       if (vm.type == "new") {
         dataservice.createCampaign(newValue).then(function(data) {
-          vm.onUpdate({data: data});
+          //vm.onUpdate({data: data});
+          vm.onUpdate({tab: 'dashboard'});
           vm.onCancel();
         });
       } else {
@@ -19,8 +20,16 @@ angular.module('pixel-app').controller('myFormController', ['dataservice',
       }
     }
 
-    this.cancel = function () {
+    vm.cancel = function () {
       vm.onCancel();
+    };
+
+    vm.logout = function () {
+      vm.onLogout();
+    }
+
+    vm.change = function (tab) {
+      vm.onChange({tab: tab});
     };
   }
 ]);

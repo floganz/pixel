@@ -101,7 +101,6 @@
             }
         }
         angular.extend(config, additionalConfig);
-        console.log(config)
         return config;
     }
 
@@ -221,17 +220,14 @@
              *                  rejected by the server.
              */
             login: function(creds, config) {
-                console.log(creds)
                 var withCredentials = arguments.length > 0,
                     loggedIn = service.isAuthenticated();
 
                 creds = creds || {};
-                console.log(creds)
                 return $http(httpConfig('login', creds, config))
                     .then(service.parse)
                     .then(save)
                     .then(function(user) {
-                        console.log(user)
                         if (withCredentials && !loggedIn) {
                             return broadcast('new-session')(user);
                         }

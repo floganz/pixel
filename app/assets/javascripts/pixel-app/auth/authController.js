@@ -1,15 +1,16 @@
 angular.module('pixel-app')
-.controller('authController', ['Auth', '$scope','$location','$cookies', function(Auth,$scope,$location,$cookies) {
+.controller('authController', ['Auth', '$scope','$location','$cookies', 
+  function(Auth,$scope,$location,$cookies) {
 
     var vm = this;
     vm.logged = false;
-    vm.host = $location.protocol() + "://" + $location.host();
-    //  + ":" + $location.port()
+    vm.host = $location.protocol() + "://" + $location.host() + ":" + $location.port();
     vm.activated = false;
+    vm.error = "";
 
     this.sign_in = function (data) {
       vm.activated = true;
-      vm.error = ""
+      vm.error = "";
       Auth.login(data,{
         headers: {
             'X-HTTP-Method-Override': 'POST'
@@ -24,6 +25,7 @@ angular.module('pixel-app')
     };
 
     this.sign_up = function (data) {
+      vm.error = ""
       Auth.register(data,{
             headers: {
                 'X-HTTP-Method-Override': 'POST'
@@ -32,20 +34,21 @@ angular.module('pixel-app')
         vm.activated = false;
       }, function(error) {
         vm.activated = false;
-        vm.error = error.data.error;
+        vm.error = "Email " + error.data.errors.email[0];
+
       });
     };
 
     this.tab = function(path) {
-      console.log(vm.host + " " + path);
+      // console.log(vm.host + " " + path);
       $location.path(path);
     }
 
     this.logout = function() {
       Auth.logout().then(function() {
-            console.log("logout success");
+            // console.log("logout success");
         }, function(error) {
-            console.log("logout failed");
+            // console.log("logout failed");
         });
     }
 
@@ -67,6 +70,7 @@ angular.module('pixel-app')
             // console.log(next);
             // $location.path(next);
         }
+        vm.error = "";
     });
 
     $scope.$on('devise:login', function(event, currentUser) {

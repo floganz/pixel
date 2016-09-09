@@ -11,21 +11,7 @@
   <body>
     <div ng-app="pixel-app">
       <div ng-controller="authController as auth" class="wrapper">
-      <!-- <img src="https://pixel-app.herokuapp.com/event.gif?id=2" /> -->
-<!--           <div ng-cloak>
-            <md-content class="md-padding">
-              <md-tabs md-dynamic-height md-border-bottom>
-                <md-tab label="Sign in" ng-click="auth.tab('auth/sign_in')" ng-if="!auth.logged"></md-tab>
-                <md-tab label="Sign up" ng-click="auth.tab('auth/sign_up')" ng-if="!auth.logged"></md-tab>
-                <md-tab label="Dashboard" ng-click="auth.tab('dashboard')" ng-if="auth.logged"></md-tab>
-                <md-tab label="New campaign" ng-click="dash.new()" ng-if="auth.logged"
-                  md-on-deselect="dash.cancel()"></md-tab>
-                <md-tab label="Log out" ng-click="auth.logout()" ng-if="auth.logged"></md-tab>
-              </md-tabs>
-            </md-content>
-          </div> -->
-          <ng-view autoscroll></ng-view>
-        <!-- </div> -->
+        <ng-view autoscroll></ng-view>
       </div>
     </div>
   </body>

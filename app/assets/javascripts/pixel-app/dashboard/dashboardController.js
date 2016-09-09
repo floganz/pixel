@@ -14,7 +14,7 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
         dataservice.getCampaigns(Auth._currentUser.id).then(function(data) {
           vm.campaigns = data;
           if (vm.campaigns.length == 0) {
-            console.log("no data");
+            // console.log("no data");
             vm.newOne = 'Press "NEW CAMPAIGN" to start';
             return
           }
@@ -30,6 +30,7 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
     this.new = function(newValue) {
       vm.campaign = {};
       vm.type = "new";
+      vm.newOne = "";
       if(vm.show) {
         vm.show = false;
       } else {
@@ -63,8 +64,12 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       vm.onLogout();
     }
 
-    vm.scope.$on("$locationChangeSuccess", function(event, next, current) {
-      vm.init();
-    });
+    vm.change = function (tab) {
+      vm.onChange({tab: tab});
+    };
+
+    // vm.scope.$on("$locationChangeSuccess", function(event, next, current) {
+    //   vm.init();
+    // });
   }
 ]);

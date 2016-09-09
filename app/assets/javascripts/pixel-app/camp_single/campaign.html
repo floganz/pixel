@@ -22,13 +22,13 @@
       </div>
     </div>
     <div class="row padded" md-whiteframe="3">
-      <form ng-submit="$ctrl.addTarget(target,$ctrl.camp.id)">
+      <form ng-submit="$ctrl.addTarget($ctrl.target,$ctrl.camp.id)">
         <div class="target-form md-inline-form">
           <md-input-container>
             <label for="label">Label</label>
-            <input type="text" id="label" ng-model="target.name">
+            <input type="text" id="label" ng-model="$ctrl.target.name">
           </md-input-container>
-          <md-button class="md-primary md-raised" ng-disabled="!target.name" type="submit">Add Target</md-button>
+          <md-button class="md-primary md-raised" ng-disabled="!$ctrl.target.name" type="submit">Add Target</md-button>
         </div>
       </form>
     </div>

@@ -33,24 +33,20 @@ angular.module('pixel-app').controller('targetController', ['dataservice', '$sco
         vm.opened = vm.targ;
       }
       vm.target = angular.copy(vm.targ);
-      // console.log("editTarget " + id)
     };
 
     this.editRecord = function (id,data) {
       vm.opened.show = !vm.opened.show;
-      vm.targ = data;
-      // console.log("edit record T " + id + " data " + data)
+      vm.targ.name = data.name;
     };
 
     this.delete = function (id) {
       vm.onDelete({id: id});
-      // console.log("delete T" + id)
     };
 
     this.cancel = function () {
       vm.targ.show = false;
     	vm.onCancel();
-      // console.log("cancel T")
     };
 	}
 ]);

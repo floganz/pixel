@@ -5,7 +5,7 @@ angular.module('pixel-app')
   var vm = this;
 
   vm.showAdvanced = function(ev, record, del) {
-    console.log(record);
+    // console.log(record);
     $mdDialog.show({
       controller: 'DialogController as m',
       templateUrl: 'pixel-app/modal/modal.html',
@@ -18,9 +18,9 @@ angular.module('pixel-app')
       clickOutsideToClose:true
     })
     .then(function(answer) {
-      console.log(answer);
+      // console.log(answer);
     }, function() {
-      console.log("cancel");
+      // console.log("cancel");
     });
   };
 

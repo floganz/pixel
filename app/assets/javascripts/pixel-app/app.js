@@ -6,7 +6,8 @@ angular.module('pixel-app',[
   'ngAnimate',
   'ngAria',
   'chart.js',
-  'ngCookies'
+  'ngCookies',
+  'ngMessages'
 ])
 .config(['AuthProvider', 'AuthInterceptProvider', '$httpProvider', function(AuthProvider, AuthInterceptProvider, $httpProvider) {
         AuthProvider.loginMethod('POST');
@@ -31,6 +32,7 @@ angular.module('pixel-app',[
       .when('/auth/sign_in', {templateUrl:'pixel-app/auth/sign-in.html'})
       .when('/auth/sign_up', {templateUrl:'pixel-app/auth/sign-up.html'})
       .when('/dashboard', {templateUrl:'pixel-app/dashboard/dashboard.html'})
+      .when('/new_campaign', {templateUrl:'pixel-app/form/new-campaign.html'})
       .when('/campaign/:id', {templateUrl:'pixel-app/camp_single/campaign.html'})
       .otherwise({redirectTo: "/auth/sign_in"})
 }]);

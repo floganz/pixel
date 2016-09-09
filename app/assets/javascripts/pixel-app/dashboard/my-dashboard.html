@@ -1,5 +1,5 @@
 <!-- <div ng-controller="dashboardController as dash"> -->
-  <nav on-change="auth.tab(tab)" logged="true" on-logout="$ctrl.logout()" 
+  <nav on-change="$ctrl.change(tab)" logged="true" on-logout="$ctrl.logout()" 
     on-new="$ctrl.new()" on-cancel="$ctrl.cancel()"></nav>
   <my-form ng-if="$ctrl.show" type="$ctrl.type" on-update="$ctrl.addRecord(data)"
     on-cancel="$ctrl.cancel()">

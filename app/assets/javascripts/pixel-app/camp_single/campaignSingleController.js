@@ -1,5 +1,5 @@
-angular.module('pixel-app').controller('campaignSingleController', ['dataservice', '$scope','$routeParams',
-	function (dataservice, $scope, $routeParams) {
+angular.module('pixel-app').controller('campaignSingleController', ['dataservice', '$scope','$routeParams','$location',
+	function (dataservice, $scope, $routeParams, $location) {
 
 		var vm = this;
     vm.scope = $scope;
@@ -25,7 +25,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
         vm.opened = vm.camp;
       }
       vm.campaign = angular.copy(vm.camp);
-      console.log("edit " + id)
+      // console.log("edit " + id)
     };
 
     this.editTarget = function(id) {
@@ -39,39 +39,49 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
         vm.opened = vm.t;
       }
       vm.target = angular.copy(vm.t);
-      console.log("editTarget " + id)
+      // console.log("editTarget " + id)
     };
 
     this.editRecord = function (id,data) {
       vm.opened.show = !vm.opened.show;
       vm.camp = data;
-      console.log("edit record " + id + " data " + data)
+      // console.log("edit record " + id + " data " + data)
     };
 
     this.delete = function (id) {
       // vm.scope.$emit('deleteRecord', id);
-      
-      console.log("delete " + id)
-    };
+      // auth.tab('dashboard');
+      // var obj =  vm.campaigns.filter(function(obj) {
+      //   return obj.id == id;
+      // });
+      // var i =  vm.campaigns.indexOf(obj[0]);
+      dataservice.destroyCampaign(vm.camp.id).then(function(id) {
+        // vm.campaigns.splice(i, 1);
+        // console.log($location.path('dashboard'));
+        $location.path('dashboard');
 
-    this.more = function (id) {
-      console.log("more " + id)
-    }
+      });
+      // console.log("delete " + id)
+    };
 
     this.cancel = function () {
       vm.camp.show = false;
-    	vm.onCancel();
-      console.log("cancel")
+    	// vm.onCancel();
+      // console.log("cancel")
     };
 
     this.addTarget = function (newValue, camp_id) {
       newValue.campaign_id = camp_id;
-      console.log(newValue);
-      dataservice.createTarget(newValue).then(function(data) {
-        data.target.visits = 0
-        data.target.unique = 0
-        vm.camp.targets.unshift(data.target)
+      var data = {
+        name: newValue.name,
+        campaign_id: newValue.campaign_id
+      }
+      dataservice.createTarget(data).then(function(data) {
+        data.target.visits = 0;
+        data.target.unique = 0;
+        vm.camp.targets.unshift(data.target);
       });
+      vm.target.name = "";
     };
 
     this.destroy = function (id) {

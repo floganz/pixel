@@ -5,7 +5,7 @@ angular.module('pixel-app').controller('navController', ['dataservice',
 
     if ( vm.selected ) {
       // console.log(tabs[current]);
-      console.log(vm.selectedIndex + " " + vm.selected);
+      // console.log(vm.selectedIndex + " " + vm.selected);
       vm.selectedIndex = vm.selected;
     }
 
