@@ -21,8 +21,8 @@
         </span>
       </div>
     </div>
-    <div class="row padded" md-whiteframe="3">
-      <my-form ng-if="$ctrl.camp.show" type="$ctrl.type" campaign="$ctrl.campaign"
+    <div class="row padded" md-whiteframe="3" ng-if="$ctrl.camp.show">
+      <my-form type="$ctrl.type" campaign="$ctrl.campaign"
         on-update="$ctrl.editRecord(id,data)" on-cancel="$ctrl.cancel()"></my-form>
     </div>
     <div class="row padded" md-whiteframe="3">
