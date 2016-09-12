@@ -3,13 +3,14 @@ angular.module('pixel-app')
   function(Auth,$scope,$location,$cookies) {
 
     var vm = this;
+    vm.scope = $scope;
     vm.logged = false;
     vm.host = $location.protocol() + "://" + $location.host();
-    // + ":" + $location.port()
+    // + ":" + $location.port();
     vm.activated = false;
     vm.error = "";
 
-    this.sign_in = function (data) {
+    vm.sign_in = function (data) {
       vm.activated = true;
       vm.error = "";
       Auth.login(data,{
@@ -25,7 +26,7 @@ angular.module('pixel-app')
       });
     };
 
-    this.sign_up = function (data) {
+    vm.sign_up = function (data) {
       vm.error = ""
       Auth.register(data,{
             headers: {
@@ -36,16 +37,15 @@ angular.module('pixel-app')
       }, function(error) {
         vm.activated = false;
         vm.error = "Email " + error.data.errors.email[0];
-
       });
     };
 
-    this.tab = function(path) {
+    vm.tab = function(path) {
       // console.log(vm.host + " " + path);
       $location.path(path);
     }
 
-    this.logout = function() {
+    vm.logout = function() {
       Auth.logout().then(function() {
             // console.log("logout success");
         }, function(error) {
@@ -53,7 +53,9 @@ angular.module('pixel-app')
         });
     }
 
-    $scope.$on("$locationChangeStart", function(event, next, current) {
+    vm.scope.$on("$locationChangeStart", function(event, next, current) {
+        //console.log(next);
+        //console.log(current);
         var token = $cookies.get('_pixel-app-session');
         if (!Auth.isAuthenticated()) {
             if (token) {
@@ -74,19 +76,19 @@ angular.module('pixel-app')
         vm.error = "";
     });
 
-    $scope.$on('devise:login', function(event, currentUser) {
+    vm.scope.$on('devise:login', function(event, currentUser) {
         vm.logged = true;
         $cookies.put('_pixel-app-session',"true");
         $location.path('dashboard');
     });
 
-    $scope.$on('devise:new-registration', function(event, currentUser) {
+    vm.scope.$on('devise:new-registration', function(event, currentUser) {
         vm.logged = true;
         $cookies.put('_pixel-app-session',"true");
-        $location.path('dashboard');
+        $location.path('new_campaign');
     });
 
-    $scope.$on('devise:logout', function(event, oldCurrentUser) {
+    vm.scope.$on('devise:logout', function(event, oldCurrentUser) {
         vm.logged = false;
         $cookies.remove('_pixel-app-session');
         $location.path('auth/sign_in');

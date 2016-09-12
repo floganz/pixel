@@ -1,8 +1,7 @@
-angular.module('pixel-app').controller('targetController', ['dataservice', '$scope','$routeParams','$location',
-	function (dataservice, $scope, $routeParams, $location) {
+angular.module('pixel-app').controller('targetController', ['dataservice', '$location',
+	function (dataservice, $location) {
 
 		var vm = this;
-    vm.scope = $scope;
     vm.host = $location.protocol() + "://" + $location.host();
     vm.visits_chart = {
       labels: ["visits", "unique visits"],
@@ -22,7 +21,7 @@ angular.module('pixel-app').controller('targetController', ['dataservice', '$sco
     }
     vm.browser_chart.data = [vm.targ.ie, vm.targ.chrome, vm.targ.mozilla, vm.targ.safari, vm.targ.opera];
     
-    this.edit = function(id) {
+    vm.edit = function(id) {
       vm.type = "edit";
       if (vm.targ.show) {
         vm.targ.show = false
@@ -35,16 +34,16 @@ angular.module('pixel-app').controller('targetController', ['dataservice', '$sco
       vm.target = angular.copy(vm.targ);
     };
 
-    this.editRecord = function (id,data) {
+    vm.editRecord = function (id,data) {
       vm.opened.show = !vm.opened.show;
       vm.targ.name = data.name;
     };
 
-    this.delete = function (id) {
+    vm.delete = function (id) {
       vm.onDelete({id: id});
     };
 
-    this.cancel = function () {
+    vm.cancel = function () {
       vm.targ.show = false;
     	vm.onCancel();
     };

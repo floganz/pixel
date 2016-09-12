@@ -3,7 +3,7 @@ angular.module('pixel-app').controller('targetFormController', ['dataservice',
 
     var vm = this;
     
-    this.onSubmit = function (newValue) {
+    vm.onSubmit = function (newValue) {
       // console.log(newValue);
       // console.log(vm.type);
       if (vm.type == "new") {
@@ -22,7 +22,7 @@ angular.module('pixel-app').controller('targetFormController', ['dataservice',
       }
     }
 
-    this.cancel = function () {
+    vm.cancel = function () {
       vm.onCancel();
     };
   }

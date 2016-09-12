@@ -9,19 +9,19 @@ angular.module('pixel-app').controller('navController', ['dataservice',
       vm.selectedIndex = vm.selected;
     }
 
-    this.tab = function (tab) {
+    vm.tab = function (tab) {
       vm.onChange({tab: tab});
     };
     
-    this.logout = function () {
+    vm.logout = function () {
       vm.onLogout();
     }
 
-    this.new = function () {
+    vm.new = function () {
       vm.onNew();
     }
 
-    this.cancel = function () {
+    vm.cancel = function () {
       vm.onCancel();
     }
   }

@@ -34,5 +34,5 @@ angular.module('pixel-app',[
       .when('/dashboard', {templateUrl:'pixel-app/dashboard/dashboard.html'})
       .when('/new_campaign', {templateUrl:'pixel-app/form/new-campaign.html'})
       .when('/campaign/:id', {templateUrl:'pixel-app/camp_single/campaign.html'})
-      .otherwise({redirectTo: "/auth/sign_in"})
+      .otherwise({redirectTo: "/dashboard"})
 }]);

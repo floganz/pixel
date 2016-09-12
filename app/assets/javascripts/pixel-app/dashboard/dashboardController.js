@@ -7,7 +7,7 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
     vm.campaigns = [];
     vm.newOne = "";
 
-    this.init = function () {
+    vm.init = function () {
       vm.newOne = "";
       if (Auth.isAuthenticated()) {
         // console.log("1");
@@ -27,7 +27,7 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
 
     vm.init();
 
-    this.new = function(newValue) {
+    vm.new = function(newValue) {
       vm.campaign = {};
       vm.type = "new";
       vm.newOne = "";
@@ -40,13 +40,13 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       }
     };
 
-    this.addRecord = function(data) {
+    vm.addRecord = function(data) {
       // console.log(data);
       vm.newOne = "";
       vm.campaigns.unshift(data.campaign);
     };
 
-    this.cancel = function () {
+    vm.cancel = function () {
       vm.opened.show = false;
     };
 

@@ -1,8 +1,7 @@
-angular.module('pixel-app').controller('campaignSingleController', ['dataservice', '$scope','$routeParams','$location',
-	function (dataservice, $scope, $routeParams, $location) {
+angular.module('pixel-app').controller('campaignSingleController', ['dataservice', '$routeParams','$location',
+	function (dataservice, $routeParams, $location) {
 
 		var vm = this;
-    vm.scope = $scope;
     vm.opened = vm;
 
     if ($routeParams.id) {
@@ -14,7 +13,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       });
     }
     
-    this.edit = function(id) {
+    vm.edit = function(id) {
       vm.type = "edit";
       if (vm.camp.show) {
         vm.camp.show = false
@@ -28,7 +27,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       // console.log("edit " + id)
     };
 
-    this.editTarget = function(id) {
+    vm.editTarget = function(id) {
       vm.type = "edit";
       if (vm.t.show) {
         vm.t.show = false
@@ -42,13 +41,13 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       // console.log("editTarget " + id)
     };
 
-    this.editRecord = function (id,data) {
+    vm.editRecord = function (id,data) {
       vm.opened.show = !vm.opened.show;
       vm.camp = data;
       // console.log("edit record " + id + " data " + data)
     };
 
-    this.delete = function (id) {
+    vm.delete = function (id) {
       // vm.scope.$emit('deleteRecord', id);
       // auth.tab('dashboard');
       // var obj =  vm.campaigns.filter(function(obj) {
@@ -64,13 +63,13 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       // console.log("delete " + id)
     };
 
-    this.cancel = function () {
+    vm.cancel = function () {
       vm.camp.show = false;
     	// vm.onCancel();
       // console.log("cancel")
     };
 
-    this.addTarget = function (newValue, camp_id) {
+    vm.addTarget = function (newValue, camp_id) {
       newValue.campaign_id = camp_id;
       var data = {
         name: newValue.name,
@@ -84,7 +83,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       vm.target.name = "";
     };
 
-    this.destroy = function (id) {
+    vm.destroy = function (id) {
       var obj =  vm.camp.targets.filter(function(obj) {
         return obj.id == id;
       });

@@ -18,7 +18,7 @@ angular.module('pixel-app').controller('campaignController', ['dataservice', '$s
     //   });
     // }
     
-    this.edit = function(id) {
+    vm.edit = function(id) {
       vm.type = "edit";
       if (vm.camp.show) {
         vm.camp.show = false
@@ -32,7 +32,7 @@ angular.module('pixel-app').controller('campaignController', ['dataservice', '$s
       console.log("edit " + id)
     };
 
-    this.editRecord = function (id,data) {
+    vm.editRecord = function (id,data) {
       // console.log(id);
       // console.log(data);
       vm.opened.show = !vm.opened.show;
@@ -40,16 +40,12 @@ angular.module('pixel-app').controller('campaignController', ['dataservice', '$s
       // console.log("edit record " + id + " data " + data)
     };
 
-    this.delete = function (id) {
+    vm.delete = function (id) {
       vm.scope.$emit('deleteRecord', id);
       // console.log("delete " + id)
     };
 
-    this.more = function (id) {
-      // console.log("more " + id)
-    }
-
-    this.cancel = function () {
+    vm.cancel = function () {
       vm.camp.show = false;
     	vm.onCancel();
       // console.log("cancel")

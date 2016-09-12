@@ -9,7 +9,7 @@ angular.module('pixel-app').controller('myFormController', ['dataservice',
       if (vm.type == "new") {
         dataservice.createCampaign(newValue).then(function(data) {
           //vm.onUpdate({data: data});
-          vm.onUpdate({tab: 'dashboard'});
+          vm.onUpdate({tab: "campaign/" + data.campaign.id});
           vm.onCancel();
         });
       } else {
