@@ -21,7 +21,9 @@ function dataservice($http, $q, Auth) {
   };
   return service;
 
-  function campaignsSearch_tmp(id, q, offset=0, limit=12) {
+  function campaignsSearch_tmp(id, q, offset, limit) {
+    offset = offset ? offset : 0;
+    limit = limit ? limit : 12;
     var deffered = $q.defer();
     $http.get("/search_c_t?user_id=" + id + "&q=" + q + "&offset=" + offset + "&limit=" + limit)
     .success(function(data, status, headers, config){
@@ -30,7 +32,9 @@ function dataservice($http, $q, Auth) {
     return deffered.promise;    
   };
 
-  function getCampaigns_tmp(id, offset=0, limit=12) {
+  function getCampaigns_tmp(id, offset, limit) {
+    offset = offset ? offset : 0;
+    limit = limit ? limit : 12;
     var deffered = $q.defer();
     $http.get("/campaigns_t?user_id=" + id + "&offset=" + offset + "&limit=" + limit)
     .success(function(data, status, headers, config){
@@ -39,7 +43,9 @@ function dataservice($http, $q, Auth) {
     return deffered.promise;
   };
 
-  function campaignsSearch(id, q, offset=0, limit=12) {
+  function campaignsSearch(id, q, offset, limit) {
+    offset = offset ? offset : 0;
+    limit = limit ? limit : 12;
     var deffered = $q.defer();
     $http.get("/search_c?user_id=" + id + "&q=" + q + "&offset=" + offset + "&limit=" + limit)
     .success(function(data, status, headers, config){
@@ -48,7 +54,9 @@ function dataservice($http, $q, Auth) {
     return deffered.promise;    
   };
 
-  function targetsSearch(id, q, offset=0, limit=12) {
+  function targetsSearch(id, q, offset, limit) {
+    offset = offset ? offset : 0;
+    limit = limit ? limit : 12;
     var deffered = $q.defer();
     $http.get("/search_t?campaign_id=" + id + "&q=" + q + "&offset=" + offset + "&limit=" + limit)
     .success(function(data, status, headers, config){
@@ -57,7 +65,9 @@ function dataservice($http, $q, Auth) {
     return deffered.promise;    
   };
 
-  function getCampaigns(id, offset=0, limit=12) {
+  function getCampaigns(id, offset, limit) {
+    offset = offset ? offset : 0;
+    limit = limit ? limit : 12;
     var deffered = $q.defer();
     $http.get("/campaigns?user_id=" + id + "&offset=" + offset + "&limit=" + limit)
     .success(function(data, status, headers, config){
@@ -75,7 +85,9 @@ function dataservice($http, $q, Auth) {
     return deffered.promise;
   };
   
-  function getTargets(id, offset=0, limit=12) {
+  function getTargets(id, offset, limit) {
+    offset = offset ? offset : 0;
+    limit = limit ? limit : 12;
     var deffered = $q.defer();
     $http.get("/targets?campaign_id=" + id + "&offset=" + offset + "&limit=" + limit)
     .success(function(data, status, headers, config){
