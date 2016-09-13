@@ -9,6 +9,7 @@ angular.module('pixel-app')
     // + ":" + $location.port();
     vm.activated = false;
     vm.error = "";
+    vm.next = "";
 
     vm.sign_in = function (data) {
       vm.activated = true;
@@ -54,37 +55,66 @@ angular.module('pixel-app')
     }
 
     vm.scope.$on("$locationChangeStart", function(event, next, current) {
-        //console.log(next);
-        //console.log(current);
+        // console.log("Next : " + next);
+        // console.log("Current : " + current);
+        // console.log("SAVED : " + vm.next);
         var token = $cookies.get('_pixel-app-session');
-        if (!Auth.isAuthenticated()) {
-            if (token) {
+        // if (!Auth.isAuthenticated()) {
+        //     if (vm.next == "") {
+        //         vm.next = current.slice(vm.host.length + 2);
+        //     }
+        //     if (token) {
+        //         Auth.login("").then(function () {
+        //             return
+        //         });
+        //     }
+        //     vm.logged = false;
+        //     var str = next.slice(vm.host.length);
+        //     if ( str != '/#/auth/sign_in' && str != '/#/auth/sign_up') {
+        //         // vm.next = "";
+        //         $location.path('/auth/sign_in');
+        //     }
+        // } else {
+        //     vm.logged = true;
+        //     // console.log(next);
+        //     // $location.path(next);
+        // }
+        if (token) {
+            if (vm.next == "") {
+                vm.next = current.slice(vm.host.length + 2);
+            }
+            if (!Auth.isAuthenticated()) {
                 Auth.login("").then(function () {
                     return
                 });
-            }
-            vm.logged = false;
-            var str = next.slice(vm.host.length);
-            if ( str != '/#/auth/sign_in' && str != '/#/auth/sign_up') {
-                $location.path('/auth/sign_in')
+            } else {
+                // console.log("auth complite")
             }
         } else {
-            vm.logged = true;
-            // console.log(next);
-            // $location.path(next);
+            var str = next.slice(vm.host.length);
+            if ( str != '/#/auth/sign_in' && str != '/#/auth/sign_up') {
+                // vm.next = "";
+                $location.path('/auth/sign_in');
+            }
         }
         vm.error = "";
     });
 
     vm.scope.$on('devise:login', function(event, currentUser) {
         vm.logged = true;
-        $cookies.put('_pixel-app-session',"true");
-        $location.path('dashboard');
+        $cookies.put('_pixel-app-session',Auth._currentUser.id);
+        // console.log("devise:login : " + vm.next);
+        if(vm.next != "") {
+            $location.path(vm.next);
+            vm.next = "";
+        } else {
+            $location.path('dashboard');
+        }
     });
 
     vm.scope.$on('devise:new-registration', function(event, currentUser) {
         vm.logged = true;
-        $cookies.put('_pixel-app-session',"true");
+        $cookies.put('_pixel-app-session',Auth._currentUser.id);
         $location.path('new_campaign');
     });
 

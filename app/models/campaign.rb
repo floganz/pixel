@@ -3,4 +3,5 @@ class Campaign < ApplicationRecord
   has_many :targets, :dependent => :destroy 
   has_one :user
 
+  searchkick searchable: [:name]
 end

@@ -25,7 +25,6 @@
       <my-form type="$ctrl.type" campaign="$ctrl.campaign"
         on-update="$ctrl.editRecord(id,data)" on-cancel="$ctrl.cancel()"></my-form>
     </div>
-
     <div class="row padded" md-whiteframe="3">
       <form ng-submit="$ctrl.addTarget($ctrl.target,$ctrl.camp.id)">
         <div class="target-form md-inline-form">
@@ -37,8 +36,18 @@
         </div>
       </form>
     </div>
-    <div class="row padded" ng-repeat="t in $ctrl.camp.targets" md-whiteframe="3">
-      <target-record targ="t" opened="$ctrl.opened" on-delete="$ctrl.destroy(id)"></target-record>
+    <div class="padded row" md-whiteframe="3">
+      <md-input-container>
+        <label for="query">Search</label>
+        <input type="text" id="query" ng-model="q" 
+          ng-change="$ctrl.search(q)" ng-model-options='{ debounce: 400 }'>
+      </md-input-container>
+    </div>
+    <div infinite-scroll="$ctrl.loadMore()" infinite-scroll-distance="1">
+      <div class="row padded" ng-repeat="t in $ctrl.camp.targets" md-whiteframe="3">
+        <target-record targ="t" opened="$ctrl.opened" on-delete="$ctrl.destroy(id)"></target-record>
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="clear"></div>
   </div>

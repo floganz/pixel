@@ -25,6 +25,7 @@ body {
 }
 
 .campaign-content, .campaign-targets {
+	width: 80%;
 	float: left;
 }
 
@@ -56,20 +57,25 @@ body {
   background-color: #eee;
 }
 
-.campaign-target {
+.campaign-target, .campaign-target-card {
 	margin: 10px auto;
 	background-color: #f2f2f2;
 	padding: 10px;
 	width: 200px;
 }
 
+.campaign-target-card {
+	margin: 8px;
+	float: left;
+}
+
+.cards-container {
+	float: left;
+}
+
 .target-name {
   font-style: italic; 
   font-weight: bold;
-}
-
-.campaign-targets-container {
-	width: 100%;
 }
 
 .modal {
@@ -83,6 +89,20 @@ body {
 	margin: 10px auto;
 	padding: 10px;
 	background-color: #eee;
+}
+
+.search-row {
+	width: 80%;
+	height: auto;
+	margin: 10px auto;
+	padding: 0 20px;
+	background-color: #eee;
+}
+
+.row-one {
+	width: 80%;
+	margin: 15px auto;
+	padding: 20px;
 }
 
 .count {
@@ -108,9 +128,9 @@ body {
 }
 
 .user-form {
-  min-width: 400px;
-  max-width: 500px;
-  margin: auto;
+	min-width: 400px;
+ 	max-width: 500px;
+ 	margin: auto;
 }
 
 .danger, .notice {

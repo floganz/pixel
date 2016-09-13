@@ -9,10 +9,18 @@ class EventsController < ApplicationController
     @event.ip = env['REMOTE_ADDR']
     @event.date = Date.today
     @event.browser = client_browser_name
-    if unique
-      @event.unique = true
-    end
+    @event.unique = false
     @event.save!
+    if unique
+      @event = Event.new
+      @event.target_id = params[:id]
+      @event.ip = env['REMOTE_ADDR']
+      @event.date = Date.today
+      @event.browser = client_browser_name
+      @event.unique = true
+      @event.save!
+    end
+    
     # redirect_to ActionController::Base.helpers.asset_path 'pixel.gif'
     # redirect_to 'pixel.gif'
     # return 'pixel.gif'

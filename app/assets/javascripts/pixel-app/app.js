@@ -7,7 +7,8 @@ angular.module('pixel-app',[
   'ngAria',
   'chart.js',
   'ngCookies',
-  'ngMessages'
+  'ngMessages',
+  'infinite-scroll'
 ])
 .config(['AuthProvider', 'AuthInterceptProvider', '$httpProvider', function(AuthProvider, AuthInterceptProvider, $httpProvider) {
         AuthProvider.loginMethod('POST');
@@ -34,5 +35,5 @@ angular.module('pixel-app',[
       .when('/dashboard', {templateUrl:'pixel-app/dashboard/dashboard.html'})
       .when('/new_campaign', {templateUrl:'pixel-app/form/new-campaign.html'})
       .when('/campaign/:id', {templateUrl:'pixel-app/camp_single/campaign.html'})
-      .otherwise({redirectTo: "/dashboard"})
+      // .otherwise({redirectTo: "/dashboard"})
 }]);

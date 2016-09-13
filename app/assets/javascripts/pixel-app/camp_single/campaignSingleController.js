@@ -3,12 +3,21 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
 
 		var vm = this;
     vm.opened = vm;
+    vm.limit = 12;
+    vm.offset = 0;
+    vm.isBusy = true;
+    vm.isEnd = false;
+    vm.q = "";
 
     if ($routeParams.id) {
       dataservice.getCampaign($routeParams.id).then(function(data) {
         vm.camp = data;
-        dataservice.getTargets(vm.camp.id).then(function(data) {
+        dataservice.getTargets(vm.camp.id, vm.offset, vm.limit).then(function(data) {
           vm.camp.targets = data;
+          vm.offset += vm.limit;
+          vm.isBusy = false;
+          if(data.length == 0)
+            vm.isEnd = true;
         });
       });
     }
@@ -93,6 +102,47 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
         vm.camp.targets.splice(i, 1);
       });
 
+    };
+
+    vm.search = function(q) {
+      vm.offset = 0;
+      vm.isBusy = true;
+      vm.q = q;
+      // console.log(vm.q)
+      var results;
+      if( vm.q == "" ) {
+        vm.isEnd = false;
+        results = dataservice.getTargets(vm.camp.id, vm.offset, vm.limit);
+      } else {
+        results = dataservice.targetsSearch(vm.camp.id, vm.q, vm.offset, vm.limit);
+      }
+      results.then(function(data) {
+        vm.camp.targets = data;
+        vm.offset += vm.limit;
+        vm.isBusy = false;
+        if(data.length == 0)
+          vm.isEnd = true;
+      });
+    };
+
+    vm.loadMore = function() {
+      if (vm.isBusy || vm.isEnd) {
+        return
+      }
+      vm.isBusy = true;
+      var results;
+      if( vm.q == "" ) {
+        results = dataservice.getTargets(vm.camp.id, vm.offset, vm.limit);
+      } else {
+        results = dataservice.targetsSearch(vm.q, vm.offset, vm.limit);
+      }
+      results.then(function(data) {
+        vm.camp.targets = vm.camp.targets.concat(data);
+        vm.offset += vm.limit;
+        vm.isBusy = false;
+        if(data.length == 0)
+          vm.isEnd = true;
+      });
     };
 	}
 ]);

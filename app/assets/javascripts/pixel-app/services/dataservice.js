@@ -1,6 +1,6 @@
-angular.module('pixel-app').service('dataservice', ['$http', '$q','Auth', dataservice]);
+angular.module('pixel-app').service('dataservice', ['$http', '$q', 'Auth', dataservice]);
 
-function dataservice($http,$q, Auth) {
+function dataservice($http, $q, Auth) {
   var service = {
     getCampaigns: getCampaigns,
     getCampaign: getCampaign,
@@ -13,14 +13,53 @@ function dataservice($http,$q, Auth) {
     destroyTarget: destroyTarget,
     destroyEvent: destroyEvent,
     editCampaign: editCampaign,
-    editTarget: editTarget
+    editTarget: editTarget,
+    campaignsSearch: campaignsSearch,
+    targetsSearch: targetsSearch,
+    getCampaigns_tmp: getCampaigns_tmp,
+    campaignsSearch_tmp: campaignsSearch_tmp
   };
   return service;
 
-  function getCampaigns(id) {
+  function campaignsSearch_tmp(id, q, offset=0, limit=12) {
     var deffered = $q.defer();
-    // id = 1;
-    $http.get("/campaigns?user_id=" + id)
+    $http.get("/search_c_t?user_id=" + id + "&q=" + q + "&offset=" + offset + "&limit=" + limit)
+    .success(function(data, status, headers, config){
+      deffered.resolve(data);
+    });
+    return deffered.promise;    
+  };
+
+  function getCampaigns_tmp(id, offset=0, limit=12) {
+    var deffered = $q.defer();
+    $http.get("/campaigns_t?user_id=" + id + "&offset=" + offset + "&limit=" + limit)
+    .success(function(data, status, headers, config){
+      deffered.resolve(data);
+    });
+    return deffered.promise;
+  };
+
+  function campaignsSearch(id, q, offset=0, limit=12) {
+    var deffered = $q.defer();
+    $http.get("/search_c?user_id=" + id + "&q=" + q + "&offset=" + offset + "&limit=" + limit)
+    .success(function(data, status, headers, config){
+      deffered.resolve(data);
+    });
+    return deffered.promise;    
+  };
+
+  function targetsSearch(id, q, offset=0, limit=12) {
+    var deffered = $q.defer();
+    $http.get("/search_t?campaign_id=" + id + "&q=" + q + "&offset=" + offset + "&limit=" + limit)
+    .success(function(data, status, headers, config){
+      deffered.resolve(data);
+    });
+    return deffered.promise;    
+  };
+
+  function getCampaigns(id, offset=0, limit=12) {
+    var deffered = $q.defer();
+    $http.get("/campaigns?user_id=" + id + "&offset=" + offset + "&limit=" + limit)
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -36,9 +75,9 @@ function dataservice($http,$q, Auth) {
     return deffered.promise;
   };
   
-  function getTargets(id) {
+  function getTargets(id, offset=0, limit=12) {
     var deffered = $q.defer();
-    $http.get("/targets?campaign_id=" + id)
+    $http.get("/targets?campaign_id=" + id + "&offset=" + offset + "&limit=" + limit)
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });

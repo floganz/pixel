@@ -1,5 +1,23 @@
 <div class="campaign-container padded" md-whiteframe="3">
-  <div class="campaign-buttons">
+  <div class="campaign-content">
+    <span class="campaign-title">
+      {{ $ctrl.camp.name }}
+    </span>
+    <div class="campaign-targets-container">
+      <h4>Targets:</h4>
+      <div class="cards-container">
+        <div class="campaign-target-card padded" ng-repeat="t in $ctrl.camp.targets" md-whiteframe="3">
+          <span class="target-name">
+            {{ t.name }}:
+          </span>  
+            <p>Visits - {{ t.visits }}</p>
+            <p>Unique visits - {{ t.unique }}</p>
+          <!-- </span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="campaign-buttons">
     <md-button class="md-primary md-raised" 
         ng-click="$ctrl.edit($ctrl.camp.id)">
       Edit
@@ -13,22 +31,6 @@
     <md-button class="md-primary md-raised" ng-href="#campaign/{{ $ctrl.camp.id }}">
       See more
     </md-button>
-  </div>
-  <div class="campaign-content">
-    <span class="campaign-title">
-      {{ $ctrl.camp.name }}
-    </span>
-    <div class="campaign-targets-container">
-      <h4>Targets:</h4>
-      <div class="campaign-target padded" ng-repeat="t in $ctrl.camp.targets" md-whiteframe="3">
-        <span class="target-name">
-          {{ t.name }}:
-        </span>  
-          <p>Visits - {{ t.visits }}</p>
-          <p>Unique visits - {{ t.unique }}</p>
-        <!-- </span> -->
-      </div>
-    </div>
   </div>
   <div class="clear"></div>
 </div>

@@ -3,20 +3,6 @@ angular.module('pixel-app').controller('campaignController', ['dataservice', '$s
 
 		var vm = this;
     vm.scope = $scope;
-    // vm.opened = $scope.opened;
-    // if ($routeParams.id) {
-    //   console.log($routeParams.id)
-    //   // var obj =  vm.unis.filter(function(obj) {
-    //   //   return obj.id == $routeParams.id;
-    //   // });
-    //   // var i =  vm.unis.indexOf(obj[0]);
-    //   dataservice.getCampaign($routeParams.id).then(function(data) {
-    //     vm.camp = data;
-    //     dataservice.getTargets(vm.camp.id).then(function(data) {
-    //       vm.camp.targets = data;
-    //     });
-    //   });
-    // }
     
     vm.edit = function(id) {
       vm.type = "edit";
