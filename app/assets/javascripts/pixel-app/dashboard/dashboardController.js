@@ -19,9 +19,9 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       var user_id;
       if(vm.q == "") {
         vm.isEnd = false;
-        results = dataservice.getCampaigns(Auth._currentUser.id, vm.offset, vm.limit)
+        results = dataservice.getCampaigns(Auth._currentUser.id, vm.offset, vm.limit);
       } else {
-        results = dataservice.campaignsSearch(Auth._currentUser.id, vm.q, vm.offset, vm.limit)
+        results = dataservice.campaignsSearch(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
       }
       results.then(function(data) {
         vm.campaigns = data;
@@ -125,9 +125,9 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       vm.isBusy = true;
       var results;
       if(vm.q == "") {
-        results = dataservice.getCampaigns_tmp(Auth._currentUser.id, vm.offset, vm.limit)
+        results = dataservice.getCampaigns_tmp(Auth._currentUser.id, vm.offset, vm.limit);
       } else {
-        results = dataservice.campaignsSearch_tmp(Auth._currentUser.id, vm.q, vm.offset, vm.limit)
+        results = dataservice.campaignsSearch_tmp(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
       }
       results.then(function(data) {
         vm.campaigns = vm.campaigns.concat(data);

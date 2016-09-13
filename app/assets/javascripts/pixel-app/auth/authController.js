@@ -28,7 +28,7 @@ angular.module('pixel-app')
     };
 
     vm.sign_up = function (data) {
-      vm.error = ""
+      vm.error = "";
       Auth.register(data,{
             headers: {
                 'X-HTTP-Method-Override': 'POST'
@@ -87,8 +87,6 @@ angular.module('pixel-app')
                 Auth.login("").then(function () {
                     return
                 });
-            } else {
-                // console.log("auth complite")
             }
         } else {
             var str = next.slice(vm.host.length);
