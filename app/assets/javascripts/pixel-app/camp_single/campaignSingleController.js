@@ -21,7 +21,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
         });
       });
     }
-    
+    //
     vm.edit = function(id) {
       vm.type = "edit";
       if (vm.camp.show) {
