@@ -11,29 +11,32 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
     vm.isBusy = true;
     vm.isEnd = false;
     vm.q = "";
+    vm.noResults ="";
 
     vm.search = function (q) {
       vm.q = q;
+      vm.noResults = "";
       vm.offset = 0;
       var results;
       var user_id;
       if(vm.q == "") {
         vm.isEnd = false;
-        results = dataservice.getCampaigns(Auth._currentUser.id, vm.offset, vm.limit);
+        results = dataservice.getCampaigns_tmp(Auth._currentUser.id, vm.offset, vm.limit);
       } else {
-        results = dataservice.campaignsSearch(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
+        results = dataservice.campaignsSearch_tmp(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
       }
       results.then(function(data) {
         vm.campaigns = data;
         vm.offset += vm.limit;
         if (vm.campaigns.length == 0) {
           vm.isEnd = true;
+          vm.noResults = "Nothing found";
           return
         }
-        dataservice.getTargets(vm.campaigns[0].id, 0, 12).then(function(data) {
-          vm.campaigns[0].targets = data;
+        // dataservice.getTargets(vm.campaigns[0].id, 0, 12).then(function(data) {
+        //   vm.campaigns[0].targets = data;
           vm.isBusy = false;
-        });
+        // });
       });
     };
 
@@ -113,11 +116,6 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       vm.onChange({tab: tab});
     };
 
-    // $rootScope.$on("$locationChangeSuccess", function(event, next, current) {
-    //   console.log("1")
-    //   vm.init();
-    // });
-
     vm.loadMore = function() {
       if (vm.isBusy || vm.isEnd) {
         return
@@ -135,10 +133,10 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
         if (data.length == 0) {
           vm.isEnd = true;
         }
-        dataservice.getTargets(vm.campaigns[0].id, 0, 12).then(function(data) {
-          vm.campaigns[0].targets = data;
+        // dataservice.getTargets(vm.campaigns[0].id, 0, 12).then(function(data) {
+        //   vm.campaigns[0].targets = data;
           vm.isBusy = false;
-        });
+        // });
       });
     };
   }

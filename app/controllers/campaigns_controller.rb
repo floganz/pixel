@@ -55,36 +55,14 @@ class CampaignsController < ApplicationController
   end
 
   def index_t
-    p "bef"
     ids = []
-    campaigns = Campaign.where(user_id: params[:user_id])
+    @campaigns = Campaign.where(user_id: params[:user_id])
       .offset(params[:offset])
       .limit(params[:limit])
       .each { |c| ids.push c.id }
-    p "aft"
-    ttt = campaigns
-    # c = "ttt"
-    # p c
-    # campaigns.each { |c| ids.push c.id }
-    # if ids.size == 0 
-    #   return
-    # end
     targets = Target.with_count_3("'#{ids.join("','")}'").group_by {|r| r.campaign_id }
-    # .tap{|g| p g}
-    # targets.to_h
-    # targets.each do |q|
-    #   logger.debug "record = #{q}"
-    # end
-    # result = {}
-    # campaigns.each do |c|
-    #   {
-    #     result[:id] => c.id,
-    #     result[:name] => c.name,
-    #     result[:targets] => res[c.id]
-    #   }
-    # end
-    # p 'sdfsdf', campaigns
-    z = ttt.map do |q|
+    z = @campaigns.map do |q|
+    # render json: @campaigns.map do |q|
       {
         :id => q.id,
         :name => q.name,
@@ -92,22 +70,10 @@ class CampaignsController < ApplicationController
       }
     end
     render json: z
-    # render nothing: true 
-    # render json: ttt.map do |c|
-    #   {
-    #     :name => "sfsfsf"
-    #   }
-    # end
-    # result.each do |r|
-    #   logger.debug "record = #{r.targets}"
-    #   r.each do |t|
-    #     logger.debug "data = #{t}"
-    #   end
-    # end
-      # @campaigns
   end
 
   def search_t
+    ids = []
     @campaigns = Campaign.search(params[:q], {
       offset: params[:offset],
       limit: params[:limit],
@@ -115,24 +81,16 @@ class CampaignsController < ApplicationController
       where: { user_id: params[:user_id] },
       misspellings: {edit_distance: 10},
       minimum_should_match: 1
-    })
-    ids = []
-    @campaigns.each { |c| ids.push c.id }
-    render json: @campaigns.map do |c|
+    }).each { |c| ids.push c.id }
+    targets = Target.with_count_3("'#{ids.join("','")}'").group_by {|r| r.campaign_id }
+    z = @campaigns.map do |q|
       {
-        id: c.id,
-        name: c.name,
-        targets: Target.with_count(c.id, 0, 12).map do |t|
-          {
-            id: t.id,
-            name: t.name,
-            visits: t.visits,
-            unique: t.unique
-          } 
-        end
+        :id => q.id,
+        :name => q.name,
+        :targets => targets[q.id].try(:[], 0..11)
       }
     end
-    # render json: @campaigns
+    render json: z
   end
 
   def search
