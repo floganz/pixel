@@ -15,33 +15,9 @@ function dataservice($http, $q, Auth) {
     editCampaign: editCampaign,
     editTarget: editTarget,
     campaignsSearch: campaignsSearch,
-    targetsSearch: targetsSearch,
-    getCampaigns_tmp: getCampaigns_tmp,
-    campaignsSearch_tmp: campaignsSearch_tmp
+    targetsSearch: targetsSearch
   };
   return service;
-
-  function campaignsSearch_tmp(id, q, offset, limit) {
-    offset = offset ? offset : 0;
-    limit = limit ? limit : 12;
-    var deffered = $q.defer();
-    $http.get("/search_c_t?user_id=" + id + "&q=" + q + "&offset=" + offset + "&limit=" + limit)
-    .success(function(data, status, headers, config){
-      deffered.resolve(data);
-    });
-    return deffered.promise;    
-  };
-
-  function getCampaigns_tmp(id, offset, limit) {
-    offset = offset ? offset : 0;
-    limit = limit ? limit : 12;
-    var deffered = $q.defer();
-    $http.get("/campaigns_t?user_id=" + id + "&offset=" + offset + "&limit=" + limit)
-    .success(function(data, status, headers, config){
-      deffered.resolve(data);
-    });
-    return deffered.promise;
-  };
 
   function campaignsSearch(id, q, offset, limit) {
     offset = offset ? offset : 0;
@@ -108,7 +84,6 @@ function dataservice($http, $q, Auth) {
   function createCampaign(newValue) {
     var deffered = $q.defer();
     newValue.user_id = Auth._currentUser.id;
-    // console.log(newValue)
     $http.post(
       "/campaigns", newValue,
       {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}

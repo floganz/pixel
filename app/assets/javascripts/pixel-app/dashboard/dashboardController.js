@@ -21,22 +21,19 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       var user_id;
       if(vm.q == "") {
         vm.isEnd = false;
-        results = dataservice.getCampaigns_tmp(Auth._currentUser.id, vm.offset, vm.limit);
+        results = dataservice.getCampaigns(Auth._currentUser.id, vm.offset, vm.limit);
       } else {
-        results = dataservice.campaignsSearch_tmp(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
+        results = dataservice.campaignsSearch(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
       }
       results.then(function(data) {
-        vm.campaigns = data;
-        vm.offset += vm.limit;
-        if (vm.campaigns.length == 0) {
-          vm.isEnd = true;
-          vm.noResults = "Nothing found";
-          return
-        }
-        // dataservice.getTargets(vm.campaigns[0].id, 0, 12).then(function(data) {
-        //   vm.campaigns[0].targets = data;
-          vm.isBusy = false;
-        // });
+      vm.campaigns = data;
+      vm.offset += vm.limit;
+      if (vm.campaigns.length == 0) {
+        vm.isEnd = true;
+        vm.noResults = "Nothing found";
+        return
+      }
+      vm.isBusy = false;
       });
     };
 
@@ -44,33 +41,23 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       vm.newOne = "";
       vm.q = "";
       if (Auth._currentUser) {
-        // console.log("_1")
         user_id = Auth._currentUser.id;
       } else {
-        // console.log("_2")
         user_id = $cookies.get('_pixel-app-session');
       }
-      // console.log("2")
-      // if (Auth.isAuthenticated()) {
-        // console.log("3")
-        dataservice.getCampaigns_tmp(user_id, vm.offset, vm.limit).then(function(data) {
-          vm.campaigns = data;
-          vm.offset += vm.limit;
-          if (vm.campaigns.length == 0) {
-            vm.isEnd = true;
-            vm.newOne = 'Press "NEW CAMPAIGN" to start';
-            return
-          }
-          // dataservice.getTargets(vm.campaigns[0].id, 0, 12).then(function(data) {
-          //   vm.campaigns[0].targets = data;
-            vm.isBusy = false;
-          // });
-        });
-      // }
+      dataservice.getCampaigns(user_id, vm.offset, vm.limit).then(function(data) {
+        vm.campaigns = data;
+        vm.offset += vm.limit;
+        if (vm.campaigns.length == 0) {
+          vm.isEnd = true;
+          vm.newOne = 'Press "NEW CAMPAIGN" to start';
+          return
+        }
+        vm.isBusy = false;
+      });
     };
 
     vm.init();
-    // vm.search();
 
     vm.new = function(newValue) {
       vm.campaign = {};
@@ -123,20 +110,17 @@ angular.module('pixel-app').controller('dashboardController', ['dataservice', '$
       vm.isBusy = true;
       var results;
       if(vm.q == "") {
-        results = dataservice.getCampaigns_tmp(Auth._currentUser.id, vm.offset, vm.limit);
+        results = dataservice.getCampaigns(Auth._currentUser.id, vm.offset, vm.limit);
       } else {
-        results = dataservice.campaignsSearch_tmp(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
+        results = dataservice.campaignsSearch(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
       }
       results.then(function(data) {
-        vm.campaigns = vm.campaigns.concat(data);
-        vm.offset += vm.limit;
-        if (data.length == 0) {
-          vm.isEnd = true;
-        }
-        // dataservice.getTargets(vm.campaigns[0].id, 0, 12).then(function(data) {
-        //   vm.campaigns[0].targets = data;
-          vm.isBusy = false;
-        // });
+      vm.campaigns = vm.campaigns.concat(data);
+      vm.offset += vm.limit;
+      if (data.length == 0) {
+        vm.isEnd = true;
+      }
+      vm.isBusy = false;
       });
     };
   }

@@ -48,7 +48,9 @@ class TargetsController < ApplicationController
   end
 
   def index
-    @targets = Target.with_count(params[:campaign_id], params[:offset], params[:limit])
+    @targets = Target.with_count("'#{params[:campaign_id]}'")
+      .offset(params[:offset])
+      .limit(params[:limit])
     render json: @targets.map do |t|
       {
         id: t.id,

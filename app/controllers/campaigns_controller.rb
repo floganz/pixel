@@ -48,41 +48,12 @@ class CampaignsController < ApplicationController
   end
 
   def index
-    @campaigns = Campaign.where(user_id: params[:user_id])
-      .offset(params[:offset])
-      .limit(params[:limit])
-    render json: @campaigns
-  end
-
-  def index_t
     ids = []
     @campaigns = Campaign.where(user_id: params[:user_id])
       .offset(params[:offset])
       .limit(params[:limit])
       .each { |c| ids.push c.id }
-    targets = Target.with_count_3("'#{ids.join("','")}'").group_by {|r| r.campaign_id }
-    z = @campaigns.map do |q|
-    # render json: @campaigns.map do |q|
-      {
-        :id => q.id,
-        :name => q.name,
-        :targets => targets[q.id].try(:[], 0..11)
-      }
-    end
-    render json: z
-  end
-
-  def search_t
-    ids = []
-    @campaigns = Campaign.search(params[:q], {
-      offset: params[:offset],
-      limit: params[:limit],
-      load: false,
-      where: { user_id: params[:user_id] },
-      misspellings: {edit_distance: 10},
-      minimum_should_match: 1
-    }).each { |c| ids.push c.id }
-    targets = Target.with_count_3("'#{ids.join("','")}'").group_by {|r| r.campaign_id }
+    targets = Target.with_count("'#{ids.join("','")}'").group_by {|r| r.campaign_id }
     z = @campaigns.map do |q|
       {
         :id => q.id,
@@ -94,6 +65,7 @@ class CampaignsController < ApplicationController
   end
 
   def search
+    ids = []
     @campaigns = Campaign.search(params[:q], {
       offset: params[:offset],
       limit: params[:limit],
@@ -101,8 +73,16 @@ class CampaignsController < ApplicationController
       where: { user_id: params[:user_id] },
       misspellings: {edit_distance: 10},
       minimum_should_match: 1
-    })
-    render json: @campaigns
+    }).each { |c| ids.push c.id }
+    targets = Target.with_count("'#{ids.join("','")}'").group_by {|r| r.campaign_id }
+    z = @campaigns.map do |q|
+      {
+        :id => q.id,
+        :name => q.name,
+        :targets => targets[q.id].try(:[], 0..11)
+      }
+    end
+    render json: z
   end
 
   def show

@@ -8,8 +8,6 @@ Rails.application.routes.draw do
   get 'event.gif', to: 'events#createEvent'
   get 'search_c', to: 'campaigns#search'
   get 'search_t', to: 'targets#search'
-  get 'search_c_t', to: 'campaigns#search_t'
-  get 'campaigns_t', to: 'campaigns#index_t'
 
   resources :campaigns, :targets, :events
 end
