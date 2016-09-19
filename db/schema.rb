@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160905111449) do
+ActiveRecord::Schema.define(version: 20160831073557) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,14 +25,15 @@ ActiveRecord::Schema.define(version: 20160905111449) do
     t.integer "target_id"
     t.string  "ip"
     t.date    "date"
-    t.boolean "unique",    default: false
     t.string  "browser"
+    t.boolean "unique",    default: false
     t.index ["target_id"], name: "index_events_on_target_id", using: :btree
   end
 
   create_table "targets", force: :cascade do |t|
     t.string  "name"
     t.integer "campaign_id"
+    t.text    "path"
     t.index ["campaign_id"], name: "index_targets_on_campaign_id", using: :btree
   end
 

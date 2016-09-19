@@ -1,5 +1,5 @@
-angular.module('pixel-app').controller('campaignSingleController', ['dataservice', '$routeParams','$location',
-	function (dataservice, $routeParams, $location) {
+angular.module('pixel-app').controller('campaignSingleController', ['dataservice', '$routeParams','$location','$q',
+	function (dataservice, $routeParams, $location, $q) {
 
 		var vm = this;
     vm.opened = vm;
@@ -8,6 +8,19 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
     vm.isBusy = true;
     vm.isEnd = false;
     vm.q = "";
+    vm.hasError = "";
+    vm.a = {
+      limit: 12,
+      offset: 0,
+      isBusy: true,
+      isEnd: false
+    }
+    vm.stat = {
+      show: false,
+      labels: ["visits", "lost"],
+      options: { responsive: true },
+      data: []
+    }
 
     if ($routeParams.id) {
       dataservice.getCampaign($routeParams.id).then(function(data) {
@@ -21,7 +34,30 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
         });
       });
     }
-    //
+
+    vm.statistic = function() {
+      vm.stat.show = !vm.stat.show;
+      dataservice.getStats(vm.camp.id).then(function(data) {
+        vm.stat.data = data;
+        for (var i = 0; i < vm.stat.data.length; i++) {
+          for (var j = 0; j < vm.stat.data[i].length; j++) {
+            if( j != 0 ) {
+              vm.stat.data[i][j].data.push(vm.stat.data[i][j-1].data[0] - vm.stat.data[i][j].data[0]);
+              if (vm.stat.data[i][j-1].data[0] == 0){
+                vm.stat.data[i][j] = {};
+              }
+            } else {
+              if (vm.stat.data[i][j].data[0] == 0){
+                vm.stat.data.splice(i, 1);
+                break;
+              }
+            }
+          }
+        }
+        // console.log(vm.stat.data)
+      });
+    };
+
     vm.edit = function(id) {
       vm.type = "edit";
       if (vm.camp.show) {
@@ -79,12 +115,19 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
     };
 
     vm.addTarget = function (newValue, camp_id) {
-      newValue.campaign_id = camp_id;
+      vm.hasError = "";
       var data = {
         name: newValue.name,
-        campaign_id: newValue.campaign_id
+        campaign_id: camp_id,
+      }
+      if (newValue.path) {
+        data.path = newValue.path.value;
       }
       dataservice.createTarget(data).then(function(data) {
+        if(!data.success) {
+          vm.hasError = "Name is taken or parent already have children";
+          return;
+        }
         data.target.visits = 0;
         data.target.unique = 0;
         vm.camp.targets.unshift(data.target);
@@ -123,6 +166,28 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
         if(data.length == 0)
           vm.isEnd = true;
       });
+    };
+
+    vm.s = function(q) {
+      vm.a.offset = 0;
+      vm.a.isBusy = true;
+      vm.a.q = q;
+      var results;
+      var deferred = $q.defer();
+      dataservice.targetsSearch(vm.camp.id, vm.a.q, vm.a.offset, vm.a.limit).then(function(data) {
+        vm.a.offset += vm.a.limit;
+        vm.a.isBusy = false;
+        if(data.length == 0)
+          vm.a.isEnd = true;
+        deferred.resolve( data.map(function(target) {
+            return {
+              value: target.id,
+              display: target.name
+            };
+          })
+        );
+      });
+      return deferred.promise;
     };
 
     vm.loadMore = function() {

@@ -111,7 +111,7 @@ body {
 	font-weight: bold;
 }
 
-.campaign-solo {
+.campaign-solo, .stat {
 	width: 80%;
 	margin: 15px auto;
 	padding: 20px;
@@ -155,4 +155,30 @@ body {
 	clear: both;
 	margin: 10px auto;
 	padding: 10px;
+}
+
+.stat-row {
+	margin: 10px auto;
+	padding: 10px;
+	clear: both;
+	background-color: #e6e6e6;
+}
+
+.stat-row:after {
+    content: '' !important;
+    clear: both !important;
+    display: block !important;
+}
+
+.stat-ceil {
+	width: 30%;
+	float: left;
+}
+
+.stat-name {
+	text-align: center;
+}
+
+.button {
+	width: 98px;
 }

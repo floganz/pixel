@@ -1,0 +1,20 @@
+<md-dialog aria-label="List dialog">
+  <h3 class="modal-title">Are you sure want to delete this record?</h3>
+  <md-dialog-content>
+    <div class="campaign-container padded modal" md-whiteframe="3">
+      <div class="campaign-content">
+        <span class="campaign-title">
+          {{ m.camp.name }}
+        </span>
+      </div>
+    </div>
+  </md-dialog-content>
+  <md-dialog-actions>
+    <md-button class="md-warn md-raised" ng-click="m.delete()">
+      Delete  
+    </md-button>
+    <md-button class="md-primary md-raised" ng-click="m.cancel()">
+      Cancel
+    </md-button>
+  </md-dialog-actions>
+</md-dialog>

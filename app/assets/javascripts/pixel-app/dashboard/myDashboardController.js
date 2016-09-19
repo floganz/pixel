@@ -1,4 +1,4 @@
-angular.module('pixel-app').controller('dashboardController', ['dataservice', '$scope','Auth','$location','$cookies',
+angular.module('pixel-app').controller('myDashboardController', ['dataservice', '$scope','Auth','$location','$cookies',
 	function (dataservice, $scope, Auth, $location, $cookies) {
 
 		var vm = this;

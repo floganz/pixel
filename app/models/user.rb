@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :campaigns
+  has_many :campaigns, :dependent => :destroy
   has_many :targets, through: :campaigns
   has_many :events, through: :targets
   

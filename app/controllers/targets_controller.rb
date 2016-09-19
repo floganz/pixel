@@ -3,15 +3,23 @@ class TargetsController < ApplicationController
   def create
     @target = Target.new target_params
     if @target.save
+      if params[:path]
+        path = Target.find(params[:path]).path
+        @target = Target.update @target.id, {:path => "#{path}.#{@target.id}"}
+        @target.save
+      else
+        @target = Target.update @target.id, {:path => "#{@target.id}"}
+        @target.save
+      end
       render :status => 200,
        :json => { :success => true,
                   :info => "created",
                   :target => @target
        } 
     else
-      render :status => 200,
+      render :status => 403,
        :json => { :success => false,
-                  :info => "create fail",
+                  :info => "create fail"
        }
     end
   end
@@ -25,7 +33,7 @@ class TargetsController < ApplicationController
                   :target => @target
        } 
     else
-      render :status => 200,
+      render :status => 403,
        :json => { :success => false,
                   :info => "update fail",
        }
@@ -40,7 +48,7 @@ class TargetsController < ApplicationController
                   :info => "deleted",
        } 
     else
-      render :status => 200,
+      render :status => 403,
        :json => { :success => false,
                   :info => "delete fail",
        }
@@ -68,7 +76,7 @@ class TargetsController < ApplicationController
       where: { campaign_id: params[:campaign_id] },
       load: false,
       misspellings: {edit_distance: 10},
-      minimum_should_match: 1
+      minimum_should_match: 0
     })
     ids = []
     @targets.each { |t| ids.push t.id }
@@ -83,8 +91,12 @@ class TargetsController < ApplicationController
     end
   end
 
+  def stats
+    render json: Target.getStatistics(params[:campaign_id])
+  end
+
   private
     def target_params
-      params.require(:target).permit(:name, :campaign_id)
+      params.require(:target).permit(:name, :campaign_id, :path)
     end
 end

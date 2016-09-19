@@ -55,3 +55,8 @@ end
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'searchkick'
+%w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+  gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
+end
+gem 'database_cleaner'
+gem 'factory_girl_rails'

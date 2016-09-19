@@ -20,10 +20,6 @@ class EventsController < ApplicationController
       @event.unique = true
       @event.save!
     end
-    
-    # redirect_to ActionController::Base.helpers.asset_path 'pixel.gif'
-    # redirect_to 'pixel.gif'
-    # return 'pixel.gif'
     send_file 'public/pixel.gif', type: 'image/png', disposition: 'inline'
   end
 

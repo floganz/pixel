@@ -14,5 +14,6 @@ module PixelApp
     config.to_prepare do
       DeviseController.respond_to :html, :json
     end
+    config.autoload_paths += %W["#{config.root}/app/validators/"]
   end
 end

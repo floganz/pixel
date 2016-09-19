@@ -1,0 +1,55 @@
+<nav on-change="auth.tab(tab)" on-logout="auth.logout()"
+  logged="true" solo="true" selected="1"></nav>
+<div ng-controller="campaignSingleController as $ctrl">
+  <div class="campaign-solo padded" md-whiteframe="3">
+    <div class="row padded"  md-whiteframe="3">
+      <div class="campaign-buttons">
+        <md-button class="md-primary md-raised" 
+            ng-click="$ctrl.edit($ctrl.camp.id)">
+          Edit
+        </md-button>
+        <div ng-controller="ModalController as modal" id="popupContainer" ng-cloak>
+          <md-button class="md-warn md-raised" 
+              ng-click="modal.showAdvanced($event, $ctrl.camp, $ctrl.delete)">
+            Delete
+          </md-button>
+        </div>
+      </div>
+      <div class="campaign-content">
+          <span class="campaign-title">
+            Campaign: {{ $ctrl.camp.name }}
+        </span>
+      </div>
+    </div>
+    <div class="row-edit-form" ng-if="$ctrl.camp.show">
+      <my-form type="$ctrl.type" campaign="$ctrl.campaign"
+        on-update="$ctrl.editRecord(id,data)" on-cancel="$ctrl.cancel()"></my-form>
+    </div>
+    <div class="row padded" md-whiteframe="3">
+      <form ng-submit="$ctrl.addTarget($ctrl.target,$ctrl.camp.id)">
+        <div class="target-form md-inline-form">
+          <md-input-container>
+            <label for="label">Label</label>
+            <input type="text" id="label" ng-model="$ctrl.target.name">
+          </md-input-container>
+          <md-button class="md-primary md-raised" ng-disabled="!$ctrl.target.name" type="submit">Add Target</md-button>
+        </div>
+      </form>
+    </div>
+    <div class="padded row" md-whiteframe="3">
+      <md-input-container>
+        <label for="query">Search</label>
+        <input type="text" id="query" ng-model="q" 
+          ng-change="$ctrl.search(q)" ng-model-options='{ debounce: 400 }'>
+      </md-input-container>
+    </div>
+    <div infinite-scroll="$ctrl.loadMore()" infinite-scroll-distance="1">
+      <div class="row padded" ng-repeat="t in $ctrl.camp.targets" md-whiteframe="3">
+        <target-record targ="t" opened="$ctrl.opened" on-delete="$ctrl.destroy(id)"></target-record>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="clear"></div>
+  </div>
+
+</div>

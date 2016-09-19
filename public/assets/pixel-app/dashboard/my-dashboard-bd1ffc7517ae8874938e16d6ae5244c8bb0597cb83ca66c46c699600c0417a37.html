@@ -1,0 +1,19 @@
+<nav on-change="$ctrl.change(tab)" logged="true" on-logout="$ctrl.logout()" 
+  on-new="$ctrl.new()" on-cancel="$ctrl.cancel()"></nav>
+<div class="row-one padded" md-whiteframe="3">
+  <div ng-if="$ctrl.newOne" class="notice">
+    {{ $ctrl.newOne }}
+  </div>
+  <div class="clear"></div>
+  <div class="search-row padded" md-whiteframe="3" ng-if="!$ctrl.newOne">
+    <md-input-container>
+      <label for="query">Search</label>
+      <input type="text" id="query" ng-model="q" ng-change="$ctrl.search(q)" ng-model-options='{ debounce: 400 }'>
+    </md-input-container>
+  </div>
+  <div class="clear"></div>
+  <div infinite-scroll="$ctrl.loadMore()" infinite-scroll-distance="1"> 
+    <campaign-record ng-repeat="c in $ctrl.campaigns" camp="c" opened="$ctrl.opened"></campaign-record>
+    <div class="clear"></div>
+  </div>
+</div>

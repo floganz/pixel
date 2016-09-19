@@ -1,0 +1,38 @@
+<div class="campaign-container padded" md-whiteframe="3">
+  <div class="campaign-content">
+    <span class="campaign-title">
+      {{ $ctrl.camp.name }}
+    </span>
+    <div class="campaign-targets-container">
+      <h4>Targets:</h4>
+      <div class="cards-container">
+        <div class="campaign-target-card padded" ng-repeat="t in $ctrl.camp.targets" md-whiteframe="3">
+          <span class="target-name">
+            {{ t.name }}:
+          </span>  
+            <p>Visits - {{ t.visits }}</p>
+            <p>Unique visits - {{ t.unique }}</p>
+          <!-- </span> -->
+        </div>
+      </div>
+    </div>
+  </div>
+    <div class="campaign-buttons">
+    <md-button class="md-primary md-raised" 
+        ng-click="$ctrl.edit($ctrl.camp.id)">
+      Edit
+    </md-button>
+    <div ng-controller="ModalController as modal" id="popupContainer" ng-cloak>
+      <md-button class="md-warn md-raised" 
+          ng-click="modal.showAdvanced($event, $ctrl.camp, $ctrl.delete)">
+        Delete
+      </md-button>
+    </div>
+    <md-button class="md-primary md-raised" ng-href="#campaign/{{ $ctrl.camp.id }}">
+      See more
+    </md-button>
+  </div>
+  <div class="clear"></div>
+</div>
+<my-form ng-if="$ctrl.camp.show" type="$ctrl.type" campaign="$ctrl.campaign"
+  on-update="$ctrl.editRecord(id,data)" on-cancel="$ctrl.cancel()"></my-form>

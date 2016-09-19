@@ -1,0 +1,57 @@
+1:
+  id: 1
+  target_id: 1
+  ip: '172.16.202.110'
+  date: '16.05.2016'
+  unique: true
+  browser: 'Mozilla'
+2:
+  id: 2
+  target_id: 1
+  ip: '172.16.202.111'
+  date: '16.05.2016'
+  unique: true
+  browser: 'Chrome'
+3:
+  id: 3
+  target_id: 2
+  unique: true
+  browser: 'Mozilla'
+
+4:
+  id: 4
+  target_id: 2
+  unique: true
+  browser: 'Mozilla'
+
+5:
+  id: 5
+  target_id: 3
+  unique: true
+  browser: 'Mozilla'
+
+6:
+  id: 6
+  target_id: 3
+  unique: true
+  browser: 'Mozilla'
+7:
+  id: 7
+  target_id: 4
+  unique: true
+  browser: 'Mozilla'
+9:
+  id: 9
+  target_id: 1
+  unique: false
+  browser: 'Mozilla'
+10:
+  id: 10
+  target_id: 1
+  unique: false
+  browser: 'Chrome'
+11:
+  id: 11
+  target_id: 1
+  unique: false
+  browser: 'Mozilla'

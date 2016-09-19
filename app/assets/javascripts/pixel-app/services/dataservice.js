@@ -15,9 +15,19 @@ function dataservice($http, $q, Auth) {
     editCampaign: editCampaign,
     editTarget: editTarget,
     campaignsSearch: campaignsSearch,
-    targetsSearch: targetsSearch
+    targetsSearch: targetsSearch,
+    getStats: getStats
   };
   return service;
+
+  function getStats(id) {
+    var deffered = $q.defer();
+    $http.get("/get_stats?campaign_id=" + id)
+    .success(function(data, status, headers, config){
+      deffered.resolve(data);
+    });
+    return deffered.promise;    
+  };
 
   function campaignsSearch(id, q, offset, limit) {
     offset = offset ? offset : 0;

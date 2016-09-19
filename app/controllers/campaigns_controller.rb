@@ -9,7 +9,7 @@ class CampaignsController < ApplicationController
                   :campaign => @campaign
        } 
     else
-      render :status => 200,
+      render :status => 403,
        :json => { :success => false,
                   :info => "create fail",
        }
@@ -25,7 +25,7 @@ class CampaignsController < ApplicationController
                   :campaign => @campaign
        } 
     else
-      render :status => 200,
+      render :status => 403,
        :json => { :success => false,
                   :info => "update fail",
        }
@@ -40,7 +40,7 @@ class CampaignsController < ApplicationController
                   :info => "deleted",
        } 
     else
-      render :status => 200,
+      render :status => 403,
        :json => { :success => false,
                   :info => "delete fail",
        }
@@ -48,20 +48,10 @@ class CampaignsController < ApplicationController
   end
 
   def index
-    ids = []
     @campaigns = Campaign.where(user_id: params[:user_id])
       .offset(params[:offset])
       .limit(params[:limit])
-      .each { |c| ids.push c.id }
-    targets = Target.with_count("'#{ids.join("','")}'").group_by {|r| r.campaign_id }
-    z = @campaigns.map do |q|
-      {
-        :id => q.id,
-        :name => q.name,
-        :targets => targets[q.id].try(:[], 0..11)
-      }
-    end
-    render json: z
+    render json: Campaign.with_targets(@campaigns)
   end
 
   def search
@@ -73,16 +63,8 @@ class CampaignsController < ApplicationController
       where: { user_id: params[:user_id] },
       misspellings: {edit_distance: 10},
       minimum_should_match: 1
-    }).each { |c| ids.push c.id }
-    targets = Target.with_count("'#{ids.join("','")}'").group_by {|r| r.campaign_id }
-    z = @campaigns.map do |q|
-      {
-        :id => q.id,
-        :name => q.name,
-        :targets => targets[q.id].try(:[], 0..11)
-      }
-    end
-    render json: z
+    })
+    render json: Campaign.with_targets(@campaigns)
   end
 
   def show

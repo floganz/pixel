@@ -1,0 +1,19 @@
+<nav on-change="auth.tab(tab)" logged="false" selected="0"></nav>
+<form name="sign_in" ng-submit="auth.sign_in(user) && sign_in.valid">
+  <div class="user-form md-form" layout="column">
+    <h2>Sign in</h2>
+    <p class="danger" ng-if="auth.error">{{ auth.error }}</p>
+    <md-input-container>
+      <label for="email">Email</label>
+      <input type="text" id="email" ng-model="user.email" ng-required="true">
+    </md-input-container>
+    <md-input-container>
+      <label for="password">Password</label>
+      <input type="password" id="password" ng-model="user.password" ng-required="true">
+    </md-input-container>
+    <div layout="row" layout-sm="column" layout-align="space-around">
+      <md-progress-circular ng-show="auth.activated" ng-disabled="!auth.activated" class="md-hue-2" md-diameter="20px"></md-progress-circular>
+    </div>
+    <md-button class="md-primary md-raised" type="submit">Sign in</md-button>
+  </div>
+</form>

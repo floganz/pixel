@@ -2,6 +2,8 @@
   ng-submit="form1.$valid && $ctrl.onSubmit($ctrl.campaign)" md-whiteframe="3">
   <h3 ng-if="$ctrl.type == 'new'">Add new campaign</h3>
   <h4 ng-if="$ctrl.type == 'edit'">Edit</h4>
+  <p class="danger" ng-if="$ctrl.hasError">{{ $ctrl.hasError }}</p>
+  <br>
   <md-input-container class="md-block" flex-gt-sm>
     <label>Name</label>
     <input ng-model="$ctrl.campaign.name" ng-required="true" type="text">

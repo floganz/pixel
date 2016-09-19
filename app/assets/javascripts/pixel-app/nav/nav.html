@@ -5,6 +5,7 @@
       <md-tab label="Sign up" ng-click="$ctrl.tab('auth/sign_up')" ng-if="!$ctrl.logged"></md-tab>
       <md-tab label="Dashboard" ng-click="$ctrl.tab('dashboard')" ng-if="$ctrl.logged"></md-tab>
       <md-tab label="Campaign" ng-if="$ctrl.solo"></md-tab>
+      <md-tab label="Statistic" ng-if="$ctrl.stat"></md-tab>
       <md-tab label="New campaign" ng-click="$ctrl.tab('new_campaign')" ng-if="$ctrl.logged"></md-tab>
       <md-tab label="Log out" ng-click="$ctrl.logout()" ng-if="$ctrl.logged"></md-tab>
     </md-tabs>
