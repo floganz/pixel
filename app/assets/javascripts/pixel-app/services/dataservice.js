@@ -22,7 +22,7 @@ function dataservice($http, $q, Auth) {
 
   function getStats(id) {
     var deffered = $q.defer();
-    $http.get("/get_stats?campaign_id=" + id)
+    $http.get("/get_stats", { params: { campaign_id: id} })
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -33,7 +33,7 @@ function dataservice($http, $q, Auth) {
     offset = offset ? offset : 0;
     limit = limit ? limit : 12;
     var deffered = $q.defer();
-    $http.get("/search_c?user_id=" + id + "&q=" + q + "&offset=" + offset + "&limit=" + limit)
+    $http.get("/search_c", { params: { user_id: id, q: q, offset: offset, limit: limit} })
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -44,7 +44,7 @@ function dataservice($http, $q, Auth) {
     offset = offset ? offset : 0;
     limit = limit ? limit : 12;
     var deffered = $q.defer();
-    $http.get("/search_t?campaign_id=" + id + "&q=" + q + "&offset=" + offset + "&limit=" + limit)
+    $http.get("/search_t", { params: { campaign_id: id, q: q, offset: offset, limit: limit} })
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -55,7 +55,7 @@ function dataservice($http, $q, Auth) {
     offset = offset ? offset : 0;
     limit = limit ? limit : 12;
     var deffered = $q.defer();
-    $http.get("/campaigns?user_id=" + id + "&offset=" + offset + "&limit=" + limit)
+    $http.get("/campaigns", { params: { user_id: id, offset: offset, limit: limit} })
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -75,7 +75,7 @@ function dataservice($http, $q, Auth) {
     offset = offset ? offset : 0;
     limit = limit ? limit : 12;
     var deffered = $q.defer();
-    $http.get("/targets?campaign_id=" + id + "&offset=" + offset + "&limit=" + limit)
+    $http.get("/targets", { params: { campaign_id: id, offset: offset, limit: limit} })
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -84,7 +84,7 @@ function dataservice($http, $q, Auth) {
 
   function getEvents(id) {
     var deffered = $q.defer();
-    $http.get("/get_events?target_id=" + id)
+    $http.get("/get_events", { params: { target_id: id} })
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });

@@ -1,6 +1,7 @@
 angular.module('pixel-app',[
 	'templates', 
 	'ngRoute',
+  'ui.router',
 	'Devise',
   'ngMaterial',
   'ngAnimate',
@@ -28,12 +29,28 @@ angular.module('pixel-app',[
 
         $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
     }])
-.config(['$routeProvider', function($routeProvider){
-    $routeProvider
-      .when('/auth/sign_in', {templateUrl:'pixel-app/auth/sign-in.html'})
-      .when('/auth/sign_up', {templateUrl:'pixel-app/auth/sign-up.html'})
-      .when('/dashboard', {templateUrl:'pixel-app/dashboard/dashboard.html'})
-      .when('/new_campaign', {templateUrl:'pixel-app/form/new-campaign.html'})
-      .when('/campaign/:id', {templateUrl:'pixel-app/camp_single/campaign.html'})
-      .otherwise({redirectTo: "/dashboard"})
+.config(['$stateProvider','$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+  $urlRouterProvider.otherwise('/dashboard');
+  
+  $stateProvider
+    .state('sign_in', {
+      url: "/auth/sign_in",
+      templateUrl: "pixel-app/pages/sign-in.html"
+    })
+    .state('sign_up', {
+      url: "/auth/sign_up",
+      templateUrl: "pixel-app/pages/sign-up.html"
+    })
+    .state('dashboard', {
+      url: "/dashboard",
+      templateUrl: "pixel-app/pages/dashboard.html"
+    })
+    .state('new_campaign', {
+      url: "/new_campaign",
+      templateUrl: "pixel-app/pages/new-campaign.html"
+    })
+    .state('campaign', {
+      url: "/campaign/:id",
+      templateUrl: "pixel-app/pages/campaign.html"
+    })
 }]);

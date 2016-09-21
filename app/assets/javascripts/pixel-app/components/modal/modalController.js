@@ -8,7 +8,7 @@ angular.module('pixel-app')
     // console.log(record);
     $mdDialog.show({
       controller: 'DialogController as m',
-      templateUrl: 'pixel-app/modal/modal.html',
+      templateUrl: 'pixel-app/components/modal/modal.html',
       parent: angular.element(document.body),
       targetEvent: ev,
       locals: {

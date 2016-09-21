@@ -3,8 +3,9 @@ angular.module('pixel-app').component('campaignRecord', {
     camp: '<',
     opened: "=",
     onUpdate: '&',
-    onCancel: '&'
+    onCancel: '&',
+    onDelete: '&'
   },
-  templateUrl:'pixel-app/campaign/campaign-record.html',
+  templateUrl:'pixel-app/components/campaign/campaign-record.html',
   controller: 'campaignController'
 });

@@ -55,7 +55,7 @@
               md-no-cache="$ctrl.noCache"
               md-selected-item="$ctrl.target.path"
               md-search-text="$ctrl.searchText"
-              md-items="item in $ctrl.s($ctrl.searchText)"
+              md-items="item in $ctrl.autoComplite($ctrl.searchText)"
               md-item-text="item.display"
               md-require-match
               md-floating-label="Parent target">

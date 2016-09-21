@@ -1,14 +1,13 @@
 angular.module('pixel-app')
-.controller('authController', ['Auth', '$scope','$location','$cookies', 
-  function(Auth,$scope,$location,$cookies) {
+.controller('authController', ['Auth', '$scope','$location','$cookies','$state',
+  function(Auth,$scope,$location,$cookies,$state) {
 
     var vm = this;
     vm.scope = $scope;
     vm.logged = false;
-    vm.host = $location.protocol() + "://" + $location.host() + ":" + $location.port();
     vm.activated = false;
     vm.error = "";
-    vm.next = "";
+    vm.next = {};
 
     vm.sign_in = function (data) {
       vm.activated = true;
@@ -17,12 +16,10 @@ angular.module('pixel-app')
         headers: {
             'X-HTTP-Method-Override': 'POST'
         }
-      }).then(function(user) {
-        vm.activated = false;
-      }, function(error) {
-        vm.activated = false;
+      }).catch(function(error) {
         vm.error = error.data.error;
-
+      }).finally(function() {
+        vm.activated = false;
       });
     };
 
@@ -32,11 +29,10 @@ angular.module('pixel-app')
             headers: {
                 'X-HTTP-Method-Override': 'POST'
             }
-      }).then(function(user) {
-        vm.activated = false;
-      }, function(error) {
-        vm.activated = false;
+      }).catch(function(error) {
         vm.error = "Email " + error.data.errors.email[0];
+      }).finally(function() {
+        vm.activated = false;
       });
     };
 
@@ -52,14 +48,16 @@ angular.module('pixel-app')
         });
     }
 
-    vm.scope.$on("$locationChangeStart", function(event, next, current) {
-        // console.log("Next : " + next);
-        // console.log("Current : " + current);
-        // console.log("SAVED : " + vm.next);
+    vm.scope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
+        // console.log(event);
+        // console.log(toState);
+        // console.log(toParams);
+        // console.log(fromState);
+        // console.log(fromParams);
         var token = $cookies.get('_pixel-app-session');
         if (token) {
-            if (vm.next == "") {
-                vm.next = current.slice(vm.host.length + 2);
+            if (vm.next.url == "") {
+                vm.next = toState;
             }
             if (!Auth.isAuthenticated()) {
                 Auth.login("").then(function () {
@@ -67,8 +65,8 @@ angular.module('pixel-app')
                 });
             }
         } else {
-            var str = next.slice(vm.host.length);
-            if ( str != '/#/auth/sign_in' && str != '/#/auth/sign_up') {
+            var str = toState.url;
+            if ( str != '/auth/sign_in' && str != '/auth/sign_up') {
                 $location.path('/auth/sign_in');
             }
         }
@@ -78,10 +76,9 @@ angular.module('pixel-app')
     vm.scope.$on('devise:login', function(event, currentUser) {
         vm.logged = true;
         $cookies.put('_pixel-app-session',Auth._currentUser.id);
-        // console.log("devise:login : " + vm.next);
-        if(vm.next != "") {
-            $location.path(vm.next);
-            vm.next = "";
+        if(vm.next.url != "") {
+            $state.go(vm.next);
+            vm.next = {};
         } else {
             $location.path('dashboard');
         }

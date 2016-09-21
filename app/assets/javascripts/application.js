@@ -24,6 +24,8 @@
 //= require angular-animate
 //= require angular-aria
 //= require angular-cookies
+//= require angular-ui-router
 //= require ngInfiniteScroll/src/infinite-scroll
+//= require lodash
 //= require pixel-app/app
 //= require_tree .

@@ -13,7 +13,9 @@
   </div>
   <div class="clear"></div>
   <div infinite-scroll="$ctrl.loadMore()" infinite-scroll-distance="1"> 
-    <campaign-record ng-repeat="c in $ctrl.campaigns" camp="c" opened="$ctrl.opened"></campaign-record>
+    <campaign-record ng-repeat="c in $ctrl.campaigns" camp="c" 
+      opened="$ctrl.opened" on-delete="$ctrl.delete(id)">
+    </campaign-record>
     <div class="clear"></div>
   </div>
 </div>

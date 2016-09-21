@@ -27,7 +27,8 @@ angular.module('pixel-app').controller('campaignController', ['dataservice', '$s
     };
 
     vm.delete = function (id) {
-      vm.scope.$emit('deleteRecord', id);
+      // vm.scope.$emit('deleteRecord', id);
+      vm.onDelete({ id: id });
       // console.log("delete " + id)
     };
 

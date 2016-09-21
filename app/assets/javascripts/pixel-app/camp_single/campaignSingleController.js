@@ -1,5 +1,5 @@
-angular.module('pixel-app').controller('campaignSingleController', ['dataservice', '$routeParams','$location','$q',
-	function (dataservice, $routeParams, $location, $q) {
+angular.module('pixel-app').controller('campaignSingleController', ['dataservice', '$stateParams','$location','$q',
+	function (dataservice, $stateParams, $location, $q) {
 
 		var vm = this;
     vm.opened = vm;
@@ -9,7 +9,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
     vm.isEnd = false;
     vm.q = "";
     vm.hasError = "";
-    vm.a = {
+    vm.autoComplite = {
       limit: 12,
       offset: 0,
       isBusy: true,
@@ -22,8 +22,8 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       data: []
     }
 
-    if ($routeParams.id) {
-      dataservice.getCampaign($routeParams.id).then(function(data) {
+    if ($stateParams.id) {
+      dataservice.getCampaign($stateParams.id).then(function(data) {
         vm.camp = data;
         dataservice.getTargets(vm.camp.id, vm.offset, vm.limit).then(function(data) {
           vm.camp.targets = data;
@@ -39,22 +39,6 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       vm.stat.show = !vm.stat.show;
       dataservice.getStats(vm.camp.id).then(function(data) {
         vm.stat.data = data;
-        for (var i = 0; i < vm.stat.data.length; i++) {
-          for (var j = 0; j < vm.stat.data[i].length; j++) {
-            if( j != 0 ) {
-              vm.stat.data[i][j].data.push(vm.stat.data[i][j-1].data[0] - vm.stat.data[i][j].data[0]);
-              if (vm.stat.data[i][j-1].data[0] == 0){
-                vm.stat.data[i][j] = {};
-              }
-            } else {
-              if (vm.stat.data[i][j].data[0] == 0){
-                vm.stat.data.splice(i, 1);
-                break;
-              }
-            }
-          }
-        }
-        // console.log(vm.stat.data)
       });
     };
 
@@ -93,19 +77,10 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
     };
 
     vm.delete = function (id) {
-      // vm.scope.$emit('deleteRecord', id);
-      // auth.tab('dashboard');
-      // var obj =  vm.campaigns.filter(function(obj) {
-      //   return obj.id == id;
-      // });
-      // var i =  vm.campaigns.indexOf(obj[0]);
       dataservice.destroyCampaign(vm.camp.id).then(function(id) {
-        // vm.campaigns.splice(i, 1);
         // console.log($location.path('dashboard'));
         $location.path('dashboard');
-
       });
-      // console.log("delete " + id)
     };
 
     vm.cancel = function () {
@@ -136,11 +111,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
     };
 
     vm.destroy = function (id) {
-      var obj =  vm.camp.targets.filter(function(obj) {
-        return obj.id == id;
-      });
-      var i =  vm.camp.targets.indexOf(obj[0]);
-      //console.log(id);
+      var i = _.findKey(vm.camp.targets,{ 'id': id });
       dataservice.destroyTarget(id).then(function(id) {
         vm.camp.targets.splice(i, 1);
       });
@@ -168,17 +139,17 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       });
     };
 
-    vm.s = function(q) {
-      vm.a.offset = 0;
-      vm.a.isBusy = true;
-      vm.a.q = q;
+    vm.autoComplite = function(q) {
+      vm.autoComplite.offset = 0;
+      vm.autoComplite.isBusy = true;
+      vm.autoComplite.q = q;
       var results;
       var deferred = $q.defer();
-      dataservice.targetsSearch(vm.camp.id, vm.a.q, vm.a.offset, vm.a.limit).then(function(data) {
-        vm.a.offset += vm.a.limit;
-        vm.a.isBusy = false;
+      dataservice.targetsSearch(vm.camp.id, vm.autoComplite.q, vm.autoComplite.offset, vm.autoComplite.limit).then(function(data) {
+        vm.autoComplite.offset += vm.autoComplite.limit;
+        vm.autoComplite.isBusy = false;
         if(data.length == 0)
-          vm.a.isEnd = true;
+          vm.autoComplite.isEnd = true;
         deferred.resolve( data.map(function(target) {
             return {
               value: target.id,

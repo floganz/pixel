@@ -6,6 +6,6 @@ angular.module('pixel-app').component('targetRecord', {
     onDelete: '&',
     onCancel: '&'
   },
-  templateUrl:'pixel-app/target/target-record.html',
+  templateUrl:'pixel-app/components/target/target-record.html',
   controller: 'targetController'
 });

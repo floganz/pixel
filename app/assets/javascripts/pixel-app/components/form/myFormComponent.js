@@ -5,6 +5,6 @@ angular.module('pixel-app').component('myForm', {
     onUpdate: '&',
     onCancel: '&'
   },
-  templateUrl:'pixel-app/form/my-form.html',
+  templateUrl:'pixel-app/components/form/my-form.html',
   controller: 'myFormController'
 });

@@ -82,18 +82,15 @@ angular.module('pixel-app').controller('myDashboardController', ['dataservice', 
       vm.opened.show = false;
     };
 
-    vm.scope.$on('deleteRecord',function(event, id){
-      var obj =  vm.campaigns.filter(function(obj) {
-        return obj.id == id;
-      });
-      var i =  vm.campaigns.indexOf(obj[0]);
+    vm.delete = function(id) {
+      var i = _.findKey(vm.campaigns,{ 'id': id });
       dataservice.destroyCampaign(id).then(function(id) {
         vm.campaigns.splice(i, 1);
         if( vm.campaigns.length == 0) {
           vm.newOne = 'Press "NEW CAMPAIGN" to start';
         }
       });
-    });
+    };
 
     vm.logout = function () {
       vm.onLogout();

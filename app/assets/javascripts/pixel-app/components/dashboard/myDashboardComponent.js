@@ -3,6 +3,6 @@ angular.module('pixel-app').component('myDashboard', {
   	onChange: '&',
   	onLogout: '&'
   },
-  templateUrl:'pixel-app/dashboard/my-dashboard.html',
+  templateUrl:'pixel-app/components/dashboard/my-dashboard.html',
   controller: 'myDashboardController'
 });

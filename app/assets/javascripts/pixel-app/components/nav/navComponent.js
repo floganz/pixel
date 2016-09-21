@@ -9,6 +9,6 @@ angular.module('pixel-app').component('nav', {
   	onNew: '&',
   	onCancel: '&'
   },
-  templateUrl:'pixel-app/nav/nav.html',
+  templateUrl:'pixel-app/components/nav/nav.html',
   controller: 'navController'
 });
