@@ -93,7 +93,6 @@ function dataservice($http, $q, Auth) {
 
   function createCampaign(newValue) {
     var deffered = $q.defer();
-    newValue.user_id = Auth._currentUser.id;
     $http.post(
       "/campaigns", newValue,
       {'Content-Type': 'application/json'}

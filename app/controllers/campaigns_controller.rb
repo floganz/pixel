@@ -2,6 +2,7 @@ class CampaignsController < ApplicationController
   respond_to :json
   def create
     @campaign = Campaign.new campaign_params
+    @campaign.user_id = current_user.id
     if @campaign.save
       render :status => 200,
        :json => { :success => true,
@@ -74,6 +75,6 @@ class CampaignsController < ApplicationController
 
   private
     def campaign_params
-      params.require(:campaign).permit(:name, :user_id)
+      params.require(:campaign).permit(:name)
     end
 end
