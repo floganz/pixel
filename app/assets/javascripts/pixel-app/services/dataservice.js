@@ -96,7 +96,7 @@ function dataservice($http, $q, Auth) {
     newValue.user_id = Auth._currentUser.id;
     $http.post(
       "/campaigns", newValue,
-      {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      {'Content-Type': 'application/json'}
     ).success(function (data, status, headers, config) {
       deffered.resolve(data);
     })
@@ -110,7 +110,7 @@ function dataservice($http, $q, Auth) {
     var deffered = $q.defer();
     $http.post(
       "/targets", newValue,
-      {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      {'Content-Type': 'application/json'}
     ).success(function (data, status, headers, config) {
       deffered.resolve(data);
     })
@@ -124,7 +124,7 @@ function dataservice($http, $q, Auth) {
     var deffered = $q.defer();
     $http.post(
       "/events", newValue,
-      {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      {'Content-Type': 'application/json'}
     ).success(function (data, status, headers, config) {
       deffered.resolve(data);
     })
@@ -138,7 +138,7 @@ function dataservice($http, $q, Auth) {
     var deffered = $q.defer();
     $http.delete(
       "/campaigns/" +id,
-      {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      {'Content-Type': 'application/json'}
     ).success(function (data, status, headers, config) {
       deffered.resolve(data);
     });
@@ -149,7 +149,7 @@ function dataservice($http, $q, Auth) {
     var deffered = $q.defer();
     $http.delete(
       "/targets/" +id,
-      {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      {'Content-Type': 'application/json'}
     ).success(function (data, status, headers, config) {
       deffered.resolve(data);
     });
@@ -160,7 +160,7 @@ function dataservice($http, $q, Auth) {
     var deffered = $q.defer();
     $http.delete(
       "/events/" +id,
-      {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      {'Content-Type': 'application/json'}
     ).success(function (data, status, headers, config) {
       deffered.resolve(data);
     });
@@ -171,7 +171,7 @@ function dataservice($http, $q, Auth) {
     var deffered = $q.defer();
     $http.patch(
       "/campaigns/"+id, newValue,
-      {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      {'Content-Type': 'application/json'}
     ).success(function (data, status, headers, config) {
       deffered.resolve(data);
     })
@@ -185,7 +185,7 @@ function dataservice($http, $q, Auth) {
     var deffered = $q.defer();
     $http.patch(
       "/targets/"+id, newValue,
-      {'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'}
+      {'Content-Type': 'application/json'}
     ).success(function (data, status, headers, config) {
       deffered.resolve(data);
     })
