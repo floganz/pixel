@@ -4,16 +4,16 @@
     <div class="campaign-container padded modal" md-whiteframe="3">
       <div class="campaign-content">
         <span class="campaign-title">
-          {{ m.camp.name }}
+          {{ $ctrl.camp.name }}
         </span>
       </div>
     </div>
   </md-dialog-content>
   <md-dialog-actions>
-    <md-button class="md-warn md-raised" ng-click="m.delete()">
+    <md-button class="md-warn md-raised" ng-click="$ctrl.delete()">
       Delete  
     </md-button>
-    <md-button class="md-primary md-raised" ng-click="m.cancel()">
+    <md-button class="md-primary md-raised" ng-click="$ctrl.cancel()">
       Cancel
     </md-button>
   </md-dialog-actions>

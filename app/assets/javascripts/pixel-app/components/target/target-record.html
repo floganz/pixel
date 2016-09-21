@@ -4,9 +4,9 @@
           ng-click="$ctrl.edit($ctrl.targ.id)">
         Edit
       </md-button>
-      <div ng-controller="ModalController as modal" id="popupContainer" ng-cloak>
+      <div id="popupContainer" ng-cloak>
         <md-button class="md-warn md-raised" 
-            ng-click="modal.showAdvanced($event, $ctrl.targ, $ctrl.delete)">
+            ng-click="$ctrl.showAdvanced($event, $ctrl.targ, $ctrl.delete)">
           Delete
         </md-button>
       </div>

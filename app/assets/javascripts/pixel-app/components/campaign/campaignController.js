@@ -1,8 +1,8 @@
-angular.module('pixel-app').controller('campaignController', ['dataservice', '$scope','$routeParams',
-	function (dataservice, $scope, $routeParams) {
+angular.module('pixel-app').controller('campaignController', ['$mdDialog', '$mdMedia',
+	function ($mdDialog, $mdMedia) {
 
 		var vm = this;
-    vm.scope = $scope;
+    // vm.scope = $scope;
     
     vm.edit = function(id) {
       vm.type = "edit";
@@ -36,6 +36,25 @@ angular.module('pixel-app').controller('campaignController', ['dataservice', '$s
       vm.camp.show = false;
     	vm.onCancel();
       // console.log("cancel")
+    };
+
+    vm.showAdvanced = function(ev, record, del) {
+      $mdDialog.show({
+        controller: 'modalController as $ctrl',
+        templateUrl: 'pixel-app/components/modal/modal.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        locals: {
+          camp: record,
+          del: del
+        },
+        clickOutsideToClose:true
+      })
+      .then(function(answer) {
+        // console.log(answer);
+      }, function() {
+        // console.log("cancel");
+      });
     };
 	}
 ]);

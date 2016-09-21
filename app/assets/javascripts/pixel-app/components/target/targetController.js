@@ -1,5 +1,5 @@
-angular.module('pixel-app').controller('targetController', ['dataservice', '$location',
-	function (dataservice, $location) {
+angular.module('pixel-app').controller('targetController', ['$location','$mdDialog', '$mdMedia',
+	function ($location, $mdDialog, $mdMedia) {
 
 		var vm = this;
     // vm.host = $location.protocol() + "://" + $location.host();
@@ -47,6 +47,25 @@ angular.module('pixel-app').controller('targetController', ['dataservice', '$loc
     vm.cancel = function () {
       vm.targ.show = false;
     	vm.onCancel();
+    };
+
+    vm.showAdvanced = function(ev, record, del) {
+      $mdDialog.show({
+        controller: 'modalController as $ctrl',
+        templateUrl: 'pixel-app/components/modal/modal.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        locals: {
+          camp: record,
+          del: del
+        },
+        clickOutsideToClose:true
+      })
+      .then(function(answer) {
+        // console.log(answer);
+      }, function() {
+        // console.log("cancel");
+      });
     };
 	}
 ]);
