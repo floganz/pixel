@@ -33,6 +33,9 @@ angular.module('pixel-app',[
   $urlRouterProvider.otherwise('/dashboard');
   
   $stateProvider
+    // .state('auth', {
+    //   abstract: true
+    // })
     .state('sign_in', {
       url: "/auth/sign_in",
       templateUrl: "pixel-app/pages/sign-in.html"

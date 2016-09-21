@@ -47,15 +47,15 @@ angular.module('pixel-app')
             // console.log("logout failed");
         });
     }
-
     vm.scope.$on("$stateChangeStart", function(event, toState, toParams, fromState, fromParams) {
         // console.log(event);
-        // console.log(toState);
+        console.log(toState);
         // console.log(toParams);
-        // console.log(fromState);
+        console.log(fromState);
         // console.log(fromParams);
         var token = $cookies.get('_pixel-app-session');
         if (token) {
+            console.log(token);
             if (vm.next.url == "") {
                 vm.next = toState;
             }
@@ -66,8 +66,11 @@ angular.module('pixel-app')
             }
         } else {
             var str = toState.url;
+            console.log(str);
             if ( str != '/auth/sign_in' && str != '/auth/sign_up') {
                 $location.path('/auth/sign_in');
+                console.log("pa-pa");
+                // $state.go('auth/sign_in');
             }
         }
         vm.error = "";
@@ -76,10 +79,12 @@ angular.module('pixel-app')
     vm.scope.$on('devise:login', function(event, currentUser) {
         vm.logged = true;
         $cookies.put('_pixel-app-session',Auth._currentUser.id);
-        if(vm.next.url != "") {
+        if(vm.next.hasOwnProperty("url") && vm.next.url != "") {
+            // console.log(vm.next);
             $state.go(vm.next);
             vm.next = {};
         } else {
+            // console.log("dash");
             $location.path('dashboard');
         }
     });
