@@ -5,25 +5,32 @@ RSpec.describe CampaignsController do
 
   describe "CRUD" do
     it "add valid record" do
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      user = FactoryGirl.create(:user, id: 3)
+      sign_in user
       @campaign = {
         success: true,
         info: "created",
         campaign: {
           id: 5,
           name: "third",
-          user_id: 1
+          user_id: 3
         }
       }
-      post :create, campaign: {name: "third", user_id: 1}
+      post :create, campaign: {name: "third"}
       response.body.should == @campaign.to_json
     end
 
     it "add invalid record" do
+      @request.env["devise.mapping"] = Devise.mappings[:user]
+      user = FactoryGirl.create(:user, id: 3)
+      sign_in user
       @campaign = {
         success: false,
         info: "create fail"
       }
-      post :create, campaign: {name: "first", user_id: 1}
+      create(:campaign, { name: "first", user_id: 3})
+      post :create, campaign: {name: "first"}
       response.body.should == @campaign.to_json
     end
 

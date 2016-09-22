@@ -180,5 +180,24 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
           vm.isEnd = true;
       });
     };
+    
+    vm.showAdvanced = function(ev, record, del) {
+      $mdDialog.show({
+        controller: 'modalController as $ctrl',
+        templateUrl: 'pixel-app/components/modal/modal.html',
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        locals: {
+          camp: record,
+          del: del
+        },
+        clickOutsideToClose:true
+      })
+      .then(function(answer) {
+        // console.log(answer);
+      }, function() {
+        // console.log("cancel");
+      });
+    };
 	}
 ]);

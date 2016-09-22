@@ -52,10 +52,4 @@ RSpec.describe Target, type: :model do
 
     @target.should_not be_valid
   end
-  # Check visits count
-  # it "Check visits count" do
-  #   @target = Target.with_count('1')
-  #   p @target
-  #   @target.should_not be_valid
-  # end
 end

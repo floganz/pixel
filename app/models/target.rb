@@ -2,7 +2,8 @@ class Target < ApplicationRecord
   has_one :campaigns
   has_many :events, :dependent => :destroy
 
-  validates :name, :uniqueness => true
+  # validates :name, :uniqueness => true
+  validates_uniqueness_of :name, scope: :campaign_id
   validates_with ParentValidator, fields: [:path]
 
   searchkick searchable: [:name]
@@ -48,7 +49,7 @@ class Target < ApplicationRecord
       .group_by { |t| t[:path].try(:[],/\d+/) }
     branches.each do |b|
       if b[1].length > 1  # Selecting branches with more than one chain
-        b[1].sort_by{ |i| i[:path].length } # Order in correct order, from parent to childs
+        b[1].sort_by!{ |i| i[:path].length } # Order in correct order, from parent to childs
         next if b[1][0][:data][0] == 0  # Skip branch if first parent visits = 0
         d = b[1].select.with_index(1) do |e,index| 
           if index == 1 # Select only chains with data != 0, but takes first data = 0

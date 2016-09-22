@@ -5,32 +5,20 @@ RSpec.describe TargetsController do
 
   describe "methods" do
     it "stats" do
-      @resp = [
-                [
-                 {"name":"1","path":"1","data":[2]},
-                 {"name":"3","path":"1.3","data":[2]},
-                 {"name":"5","path":"1.3.5","data":[0]}
-                ], 
-                [
-                 {"name":"2","path":"2","data":[2]}, 
-                 {"name":"4","path":"2.4","data":[1]},
-                 {"name":"6","path":"2.4.6","data":[0]}
-                ]
-              ]
-      @resp2 = [
-                [
-                 {"name":"2","path":"2","data":[2]}, 
-                 {"name":"4","path":"2.4","data":[1]},
-                 {"name":"6","path":"2.4.6","data":[0]}
-                ], 
-                [
-                 {"name":"1","path":"1","data":[2]},
-                 {"name":"3","path":"1.3","data":[2]},
-                 {"name":"5","path":"1.3.5","data":[0]}
-                ]
-              ]
+      expected = [
+        [
+          {name:"2",path:"2",data:[2]},
+          {name:"4",path:"2.4",data:[1,1]},
+          {name:"6",path:"2.4.6",data:[0,1]}
+        ],
+        [
+          {name:"1",path:"1",data:[2]},
+          {name:"3",path:"1.3",data:[2,0]},
+          {name:"5",path:"1.3.5",data:[0,2]}
+        ]
+      ]
       get :stats, params: { campaign_id: 1 }
-      response.body.should == @resp2.to_json
+      response.body.should == expected.to_json
     end
 
     it "index" do
@@ -97,8 +85,8 @@ RSpec.describe TargetsController do
         target: {
           id:1,
           name:"ZZZ",
-          path:"1",
-          campaign_id:1
+          campaign_id:1,
+          path:"1"
         }
       }
       process :update, method: :patch, params: { id: 1, target: { name: "ZZZ" } }
