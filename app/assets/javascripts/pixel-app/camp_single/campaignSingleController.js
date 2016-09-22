@@ -1,5 +1,5 @@
-angular.module('pixel-app').controller('campaignSingleController', ['dataservice', '$stateParams','$location','$q',
-	function (dataservice, $stateParams, $location, $q) {
+angular.module('pixel-app').controller('campaignSingleController', ['dataService', '$stateParams','$location','$q',
+	function (dataService, $stateParams, $location, $q) {
 
 		var vm = this;
     vm.opened = vm;
@@ -23,9 +23,9 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
     }
 
     if ($stateParams.id) {
-      dataservice.getCampaign($stateParams.id).then(function(data) {
+      dataService.getCampaign($stateParams.id).then(function(data) {
         vm.camp = data;
-        dataservice.getTargets(vm.camp.id, vm.offset, vm.limit).then(function(data) {
+        dataService.getTargets(vm.camp.id, vm.offset, vm.limit).then(function(data) {
           vm.camp.targets = data;
           vm.offset += vm.limit;
           vm.isBusy = false;
@@ -37,7 +37,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
 
     vm.statistic = function() {
       vm.stat.show = !vm.stat.show;
-      dataservice.getStats(vm.camp.id).then(function(data) {
+      dataService.getStats(vm.camp.id).then(function(data) {
         vm.stat.data = data;
       });
     };
@@ -77,7 +77,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
     };
 
     vm.delete = function (id) {
-      dataservice.destroyCampaign(vm.camp.id).then(function(id) {
+      dataService.destroyCampaign(vm.camp.id).then(function(id) {
         // console.log($location.path('dashboard'));
         $location.path('dashboard');
       });
@@ -98,7 +98,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       if (newValue.path) {
         data.path = newValue.path.value;
       }
-      dataservice.createTarget(data).then(function(data) {
+      dataService.createTarget(data).then(function(data) {
         if(!data.success) {
           vm.hasError = "Name is taken or parent already have children";
           return;
@@ -112,7 +112,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
 
     vm.destroy = function (id) {
       var i = _.findKey(vm.camp.targets,{ 'id': id });
-      dataservice.destroyTarget(id).then(function(id) {
+      dataService.destroyTarget(id).then(function(id) {
         vm.camp.targets.splice(i, 1);
       });
 
@@ -126,9 +126,9 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       var results;
       if( vm.q == "" ) {
         vm.isEnd = false;
-        results = dataservice.getTargets(vm.camp.id, vm.offset, vm.limit);
+        results = dataService.getTargets(vm.camp.id, vm.offset, vm.limit);
       } else {
-        results = dataservice.targetsSearch(vm.camp.id, vm.q, vm.offset, vm.limit);
+        results = dataService.targetsSearch(vm.camp.id, vm.q, vm.offset, vm.limit);
       }
       results.then(function(data) {
         vm.camp.targets = data;
@@ -145,7 +145,7 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       vm.autoComplite.q = q;
       var results;
       var deferred = $q.defer();
-      dataservice.targetsSearch(vm.camp.id, vm.autoComplite.q, vm.autoComplite.offset, vm.autoComplite.limit).then(function(data) {
+      dataService.targetsSearch(vm.camp.id, vm.autoComplite.q, vm.autoComplite.offset, vm.autoComplite.limit).then(function(data) {
         vm.autoComplite.offset += vm.autoComplite.limit;
         vm.autoComplite.isBusy = false;
         if(data.length == 0)
@@ -168,9 +168,9 @@ angular.module('pixel-app').controller('campaignSingleController', ['dataservice
       vm.isBusy = true;
       var results;
       if( vm.q == "" ) {
-        results = dataservice.getTargets(vm.camp.id, vm.offset, vm.limit);
+        results = dataService.getTargets(vm.camp.id, vm.offset, vm.limit);
       } else {
-        results = dataservice.targetsSearch(vm.q, vm.offset, vm.limit);
+        results = dataService.targetsSearch(vm.q, vm.offset, vm.limit);
       }
       results.then(function(data) {
         vm.camp.targets = vm.camp.targets.concat(data);

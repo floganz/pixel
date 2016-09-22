@@ -1,6 +1,6 @@
-angular.module('pixel-app').service('dataservice', ['$http', '$q', 'Auth', dataservice]);
+angular.module('pixel-app').service('dataService', ['$http', '$q', 'Auth', dataService]);
 
-function dataservice($http, $q, Auth) {
+function dataService($http, $q, Auth) {
   var service = {
     getCampaigns: getCampaigns,
     getCampaign: getCampaign,
@@ -29,11 +29,11 @@ function dataservice($http, $q, Auth) {
     return deffered.promise;    
   };
 
-  function campaignsSearch(id, q, offset, limit) {
+  function campaignsSearch(q, offset, limit) {
     offset = offset ? offset : 0;
     limit = limit ? limit : 12;
     var deffered = $q.defer();
-    $http.get("/search_c", { params: { user_id: id, q: q, offset: offset, limit: limit} })
+    $http.get("/search_c", { params: { q: q, offset: offset, limit: limit} })
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });
@@ -51,11 +51,11 @@ function dataservice($http, $q, Auth) {
     return deffered.promise;    
   };
 
-  function getCampaigns(id, offset, limit) {
+  function getCampaigns(offset, limit) {
     offset = offset ? offset : 0;
     limit = limit ? limit : 12;
     var deffered = $q.defer();
-    $http.get("/campaigns", { params: { user_id: id, offset: offset, limit: limit} })
+    $http.get("/campaigns", { params: { offset: offset, limit: limit} })
     .success(function(data, status, headers, config){
       deffered.resolve(data);
     });

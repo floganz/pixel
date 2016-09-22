@@ -3,7 +3,6 @@ class Campaign < ApplicationRecord
   has_many :targets, :dependent => :destroy 
   has_one :user
 
-  # validates :name, :uniqueness => true
   validates_uniqueness_of :name, scope: :user_id
 
   searchkick searchable: [:name]

@@ -59,7 +59,7 @@ RSpec.describe CampaignsController do
   end
 
   describe "Methods" do
-    it "index" do
+    it "#index" do
       expected = [
         {
           id:1,

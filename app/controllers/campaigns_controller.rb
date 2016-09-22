@@ -49,7 +49,7 @@ class CampaignsController < ApplicationController
   end
 
   def index
-    @campaigns = Campaign.where(user_id: params[:user_id])
+    @campaigns = Campaign.where(user_id: current_user.id)
       .offset(params[:offset])
       .limit(params[:limit])
     render json: Campaign.with_targets(@campaigns)
@@ -61,7 +61,7 @@ class CampaignsController < ApplicationController
       offset: params[:offset],
       limit: params[:limit],
       load: false,
-      where: { user_id: params[:user_id] },
+      where: { user_id: current_user.id },
       misspellings: {edit_distance: 10},
       minimum_should_match: 1
     })

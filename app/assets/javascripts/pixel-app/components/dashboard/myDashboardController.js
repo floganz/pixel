@@ -1,5 +1,5 @@
-angular.module('pixel-app').controller('myDashboardController', ['dataservice', '$scope','Auth','$location','$cookies',
-	function (dataservice, $scope, Auth, $location, $cookies) {
+angular.module('pixel-app').controller('myDashboardController', ['dataService', '$scope',
+	function (dataService, $scope) {
 
 		var vm = this;
     vm.scope = $scope;
@@ -18,12 +18,11 @@ angular.module('pixel-app').controller('myDashboardController', ['dataservice', 
       vm.noResults = "";
       vm.offset = 0;
       var results;
-      var user_id;
       if(vm.q == "") {
         vm.isEnd = false;
-        results = dataservice.getCampaigns(Auth._currentUser.id, vm.offset, vm.limit);
+        results = dataService.getCampaigns(vm.offset, vm.limit);
       } else {
-        results = dataservice.campaignsSearch(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
+        results = dataService.campaignsSearch(vm.q, vm.offset, vm.limit);
       }
       results.then(function(data) {
       vm.campaigns = data;
@@ -40,12 +39,7 @@ angular.module('pixel-app').controller('myDashboardController', ['dataservice', 
     vm.init = function () {
       vm.newOne = "";
       vm.q = "";
-      if (Auth._currentUser) {
-        user_id = Auth._currentUser.id;
-      } else {
-        user_id = $cookies.get('_pixel-app-session');
-      }
-      dataservice.getCampaigns(user_id, vm.offset, vm.limit).then(function(data) {
+      dataService.getCampaigns(vm.offset, vm.limit).then(function(data) {
         vm.campaigns = data;
         vm.offset += vm.limit;
         if (vm.campaigns.length == 0) {
@@ -84,7 +78,7 @@ angular.module('pixel-app').controller('myDashboardController', ['dataservice', 
 
     vm.delete = function(id) {
       var i = _.findKey(vm.campaigns,{ 'id': id });
-      dataservice.destroyCampaign(id).then(function(id) {
+      dataService.destroyCampaign(id).then(function(id) {
         vm.campaigns.splice(i, 1);
         if( vm.campaigns.length == 0) {
           vm.newOne = 'Press "NEW CAMPAIGN" to start';
@@ -107,9 +101,9 @@ angular.module('pixel-app').controller('myDashboardController', ['dataservice', 
       vm.isBusy = true;
       var results;
       if(vm.q == "") {
-        results = dataservice.getCampaigns(Auth._currentUser.id, vm.offset, vm.limit);
+        results = dataService.getCampaigns(vm.offset, vm.limit);
       } else {
-        results = dataservice.campaignsSearch(Auth._currentUser.id, vm.q, vm.offset, vm.limit);
+        results = dataService.campaignsSearch(vm.q, vm.offset, vm.limit);
       }
       results.then(function(data) {
       vm.campaigns = vm.campaigns.concat(data);
